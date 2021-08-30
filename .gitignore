@@ -1,0 +1,12 @@
+# IntelliJ
+
+.idea/
+*.iml
+
+# Java
+
+out/
+*.class
+
+# Language
+*.mcfunction
