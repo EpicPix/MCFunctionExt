@@ -4,11 +4,15 @@ name: CI
 
 jobs:
   compile:
-    runs-on: 'openjdk:8'
+    runs-on: ubuntu-latest
     name: Compile
     steps:
       - name: Clone repository
         uses: actions/checkout@v2
+
+      - uses: joschi/setup-jdk@v2
+        with:
+          java-version: '8'
 
       - name: Compile
         run: javac -cp "." $(find . -name "*.java")
