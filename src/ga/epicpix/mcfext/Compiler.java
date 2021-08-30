@@ -16,7 +16,7 @@ public class Compiler {
     }
 
     public static String compile(String data) {
-        return null; //TODO
+        return "<TODO>"; //TODO
     }
 
 }
