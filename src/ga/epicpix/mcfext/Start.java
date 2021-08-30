@@ -75,15 +75,20 @@ public class Start {
                 String data = Compiler.compileFile(f);
                 File out = new File(compiled, f.getPath()
                         .split("/", 2)[1]
-                        .split("\\.", 2)[0] + ".mcfunction"
-                );
-                if(out.getParentFile().mkdirs()) {
+                );;
+                if(f.getName().endsWith(".emcfun")) {
+                    out = new File(compiled, f.getPath()
+                            .split("/", 2)[1]
+                            .split("\\.", 2)[0] + ".mcfunction"
+                    );
+                }
+                if (out.getParentFile().mkdirs()) {
                     System.err.println("Failed to create folders");
                     return 1;
                 }
-                if(data!=null) {
+                if (data != null) {
                     Files.write(out.toPath(), data.getBytes());
-                }else {
+                } else {
                     System.err.println(out.getPath() + " could not be saved");
                 }
             }
