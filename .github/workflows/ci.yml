@@ -1,0 +1,16 @@
+on: [push, pull_request]
+
+name: CI
+
+jobs:
+  compile:
+    runs-on: 'openjdk:8'
+    name: Compile
+    steps:
+      - name: Clone repository
+        uses: actions/checkout@v2
+
+      - name: Compile
+        run: javac -cp "." $(find . -name "*.java")
+        shell: bash
+        working-directory: src/
