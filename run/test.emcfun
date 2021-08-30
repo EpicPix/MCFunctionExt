@@ -1,3 +1,4 @@
 $A = 123
 say $A
+# This is ignored
 say $AA

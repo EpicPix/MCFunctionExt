@@ -22,6 +22,7 @@ public class Compiler {
         List<String> lines = new ArrayList<>();
         Collections.addAll(lines, data.split("\n"));
         lines.removeIf(String::isEmpty);
+        lines.removeIf(a -> a.startsWith("#"));
 
         Variables variables = new Variables();
 
