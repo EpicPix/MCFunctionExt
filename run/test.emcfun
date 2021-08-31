@@ -13,3 +13,9 @@ $CMD = say hi
 $B = abcd
 $B = {$B}efgh
 say {$B}
+
+say a\
+    b\
+    c
+
+# This will compile to `say abc` because it ignores the whitespace

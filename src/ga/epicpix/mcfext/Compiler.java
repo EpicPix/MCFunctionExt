@@ -26,8 +26,7 @@ public class Compiler {
     public static String compile(String data) {
         List<String> lines = new ArrayList<>();
         Collections.addAll(lines, data.split("\n"));
-        lines.removeIf(String::isEmpty);
-        lines.removeIf(a -> a.startsWith("#"));
+        lines = compile0(lines);
 
         Variables variables = new Variables();
 
@@ -43,6 +42,25 @@ public class Compiler {
         }
 
         return String.join("\n", output.toArray(new String[0]));
+    }
+
+    private static List<String> compile0(List<String> lines) {
+        ArrayList<String> array = new ArrayList<>(lines);
+        array.removeIf(String::isEmpty);
+        array.removeIf(a -> a.startsWith("#"));
+        ArrayList<String> out = new ArrayList<>();
+        StringBuilder temp = new StringBuilder();
+        for(String str : array) {
+            if(str.endsWith("\\")) {
+                temp.append(str.substring(0, str.length() - 1).trim());
+            }else if(temp.length() > 0) {
+                out.add(temp + str.trim());
+                temp = new StringBuilder();
+            }else {
+                out.add(str);
+            }
+        }
+        return out;
     }
 
     public static String compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
