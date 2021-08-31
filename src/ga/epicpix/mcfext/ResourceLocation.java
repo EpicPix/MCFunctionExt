@@ -33,4 +33,10 @@ public final class ResourceLocation {
         return getNamespace() + ":" + getLocation();
     }
 
+    public boolean isValid() {
+        if(!namespace.matches("[0-9a-z_\\-./]*")) {
+            return false;
+        }
+        return location.matches("[0-9a-z_\\-.]*");
+    }
 }

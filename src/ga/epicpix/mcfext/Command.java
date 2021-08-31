@@ -1,6 +1,7 @@
 package ga.epicpix.mcfext;
 
 import ga.epicpix.mcfext.commands.*;
+import ga.epicpix.mcfext.exceptions.NoCompatibilityException;
 import java.util.ArrayList;
 
 public abstract class Command {
@@ -8,6 +9,7 @@ public abstract class Command {
     private static final ArrayList<Command> COMMANDS = new ArrayList<>();
 
     public static void init() {
+        COMMANDS.add(new AdvancementCommand());
         COMMANDS.add(new BlockedCommands());
         COMMANDS.add(new ReplaceItemCommand());
         COMMANDS.add(new SayCommand());
@@ -30,7 +32,7 @@ public abstract class Command {
     }
 
     public String compatibility(String commandName, CommandStringIterator data, MinecraftVersion version, Variables vars) {
-        return null;
+        throw new NoCompatibilityException(commandName);
     }
 
     public String getName() {
