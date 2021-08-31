@@ -22,7 +22,7 @@ public abstract class Command {
     }
 
     public String parse(String data) {
-        return data;
+        return getName() + " " + data;
     }
 
     public String compatibility(String data, MinecraftVersion version) {

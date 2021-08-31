@@ -9,4 +9,11 @@ public final class SayCommand extends Command {
         super("say", MinecraftVersion.PRE, null);
     }
 
+    public String parse(String data) {
+        if(data == null || data.trim().isEmpty()) {
+            System.out.println("[WARNING] /say has no arguments");
+            return null;
+        }
+        return super.parse(data);
+    }
 }
