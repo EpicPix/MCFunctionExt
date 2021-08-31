@@ -44,7 +44,6 @@ public class Compiler {
             String name = data[0];
             String operation = data[1];
             String value = vars.placeVariables(data[2]);
-            String.concat();
             if(operation.equals("=")) {
                 vars.set(name, value);
             }else {
