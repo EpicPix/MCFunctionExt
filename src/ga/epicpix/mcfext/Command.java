@@ -10,6 +10,7 @@ public abstract class Command {
 
     public static void init() {
         COMMANDS.add(new AdvancementCommand());
+        COMMANDS.add(new BlockDataCommand());
         COMMANDS.add(new BlockedCommands());
         COMMANDS.add(new DefaultGamemodeCommand());
         COMMANDS.add(new ReplaceItemCommand());
