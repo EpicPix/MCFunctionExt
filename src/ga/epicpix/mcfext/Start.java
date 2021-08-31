@@ -9,6 +9,7 @@ import java.util.Collections;
 public class Start {
 
     public static void main(String[] args) throws Exception {
+        Command.init();
         int ret = run(args);
         if(ret!=0) {
             System.exit(ret);

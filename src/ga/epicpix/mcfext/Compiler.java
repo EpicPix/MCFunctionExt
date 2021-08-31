@@ -51,7 +51,13 @@ public class Compiler {
             }
             return null;
         }
-        return vars.placeVariables(line);
+        String placedLine = vars.placeVariables(line);
+        String[] split = placedLine.split(" ", 2);
+        Command cmd = Command.getCommand(split[0]);
+        if(cmd!=null) {
+            return cmd.parse(split[1]);
+        }
+        return placedLine;
     }
 
 }
