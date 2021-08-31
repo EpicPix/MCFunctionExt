@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Compiler {
@@ -30,8 +31,10 @@ public class Compiler {
 
         ArrayList<String> output = new ArrayList<>();
 
-        for(String line : lines) {
-            String cline = compileLine(line, variables);
+        Iterator<String> lineIterator = lines.iterator();
+
+        while(lineIterator.hasNext()) {
+            String cline = compileLine(lineIterator.next(), lineIterator, variables);
             if (cline != null) {
                 output.add(cline);
             }
@@ -40,7 +43,7 @@ public class Compiler {
         return String.join("\n", output.toArray(new String[0]));
     }
 
-    public static String compileLine(String line, Variables vars) {
+    public static String compileLine(String line, Iterator<String> lines, Variables vars) {
         if(line.startsWith("$")) {
             String[] data = line.substring(1).split(" ", 3);
             String name = data[0];
