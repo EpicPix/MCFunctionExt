@@ -6,7 +6,7 @@ import ga.epicpix.mcfext.MinecraftVersion;
 public final class SayCommand extends Command {
 
     public SayCommand() {
-        super("say", true, MinecraftVersion.PRE, null);
+        super("say", MinecraftVersion.PRE, null);
     }
 
 }

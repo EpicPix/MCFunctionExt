@@ -12,13 +12,11 @@ public abstract class Command {
     }
 
     private final String name;
-    private final boolean exists;
     private final MinecraftVersion addedIn;
     private final MinecraftVersion removedIn;
 
-    public Command(String name, boolean exists, MinecraftVersion addedIn, MinecraftVersion removedIn) {
+    public Command(String name, MinecraftVersion addedIn, MinecraftVersion removedIn) {
         this.name = name;
-        this.exists = exists;
         this.addedIn = addedIn;
         this.removedIn = removedIn;
     }
@@ -33,10 +31,6 @@ public abstract class Command {
 
     public String getName() {
         return name;
-    }
-
-    public boolean doesExist() {
-        return exists;
     }
 
     public MinecraftVersion getAddedVersion() {
