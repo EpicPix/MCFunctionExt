@@ -83,9 +83,9 @@ public class Compiler {
         if(cmd!=null) {
             boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId()<COMPILE_TO.getId() && cmd.getRemovedVersion().getId()>COMPILE_TO.getId());
             if(!accessible) {
-                return cmd.compatibility(iter, COMPILE_TO, vars);
+                return cmd.compatibility(runCmd, iter, COMPILE_TO, vars);
             }
-            return cmd.parse(iter, vars);
+            return cmd.parse(runCmd, iter, vars);
         }else {
             warn("Unknown command: " + runCmd);
         }

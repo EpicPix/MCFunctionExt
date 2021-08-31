@@ -8,7 +8,7 @@ public abstract class Command {
     private static final ArrayList<Command> COMMANDS = new ArrayList<>();
 
     public static void init() {
-        COMMANDS.add(new PublishCommand());
+        COMMANDS.add(new BlockedCommands());
         COMMANDS.add(new ReplaceItemCommand());
         COMMANDS.add(new SayCommand());
     }
@@ -16,22 +16,25 @@ public abstract class Command {
     private final String name;
     private final MinecraftVersion addedIn;
     private final MinecraftVersion removedIn;
+    private final String[] aliases;
 
-    public Command(String name, MinecraftVersion addedIn, MinecraftVersion removedIn) {
+    public Command(String name, MinecraftVersion addedIn, MinecraftVersion removedIn, String... aliases) {
         this.name = name;
         this.addedIn = addedIn;
         this.removedIn = removedIn;
+        this.aliases = aliases;
     }
 
-    public String parse(CommandStringIterator data, Variables vars) {
-        return getName() + " " + vars.placeVariables(data.rest());
+    public String parse(String commandName, CommandStringIterator data, Variables vars) {
+        return commandName + " " + vars.placeVariables(data.rest());
     }
 
-    public String compatibility(CommandStringIterator data, MinecraftVersion version, Variables vars) {
+    public String compatibility(String commandName, CommandStringIterator data, MinecraftVersion version, Variables vars) {
         return null;
     }
 
     public String getName() {
+        if(name==null) return aliases[0];
         return name;
     }
 

@@ -13,7 +13,7 @@ public final class SayCommand extends Command {
         super("say", MinecraftVersion.PRE, null);
     }
 
-    public String parse(CommandStringIterator iter, Variables vars) {
+    public String parse(String commandName, CommandStringIterator iter, Variables vars) {
         String data = iter.removeNextWhitespace().rest();
         if(data == null || data.trim().isEmpty()) {
             warn("/say has no arguments");

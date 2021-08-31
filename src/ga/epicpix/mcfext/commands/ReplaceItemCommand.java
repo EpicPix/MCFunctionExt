@@ -15,7 +15,7 @@ public class ReplaceItemCommand extends Command {
         return "item replace" + data.rest();
     }
 
-    public String parse(CommandStringIterator data, Variables vars) {
-        return super.parse(data, vars);
+    public String parse(String commandName, CommandStringIterator data, Variables vars) {
+        return super.parse(commandName, data, vars);
     }
 }
