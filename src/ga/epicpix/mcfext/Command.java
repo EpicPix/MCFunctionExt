@@ -21,11 +21,11 @@ public abstract class Command {
         this.removedIn = removedIn;
     }
 
-    public String parse(String data) {
-        return getName() + " " + data;
+    public String parse(CommandStringIterator data, Variables vars) {
+        return getName() + " " + vars.placeVariables(data.rest());
     }
 
-    public String compatibility(String data, MinecraftVersion version) {
+    public String compatibility(CommandStringIterator data, MinecraftVersion version, Variables vars) {
         return null;
     }
 

@@ -56,18 +56,19 @@ public class Compiler {
             }
             return null;
         }
-        String placedLine = vars.placeVariables(line.reset().rest());
-        String[] split = placedLine.split(" ", 2);
-        Command cmd = Command.getCommand(split[0]);
+        String runCmd = vars.placeVariables(wcmd);
+        CommandStringIterator iter = new CommandStringIterator(runCmd + " " + line.removeNextWhitespace().rest());
+        runCmd = iter.nextWord();
+        Command cmd = Command.getCommand(runCmd);
         if(cmd!=null) {
             boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId()<COMPILE_TO.getId() && cmd.getRemovedVersion().getId()>COMPILE_TO.getId());
-            String args = split.length > 1 ? split[1] : null;
             if(!accessible) {
-                return cmd.compatibility(args, COMPILE_TO);
+                return cmd.compatibility(iter, COMPILE_TO, vars);
             }
-            return cmd.parse(args);
+            return cmd.parse(iter, vars);
         }
-        return placedLine;
+        String rest = iter.rest();
+        return runCmd + (rest==null ? "" : " " + rest);
     }
 
 }
