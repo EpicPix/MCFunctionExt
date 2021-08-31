@@ -8,6 +8,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import static ga.epicpix.mcfext.Utils.warn;
+
 public class Compiler {
 
     public static final MinecraftVersion COMPILE_TO = MinecraftVersion.MC1_17;
@@ -52,7 +54,7 @@ public class Compiler {
             if(operation.equals("=")) {
                 vars.set(name, value);
             }else {
-                System.err.println("[WARNING] Unknown operation: " + operation);
+                warn("Unknown operation: " + operation);
             }
             return null;
         }
@@ -66,8 +68,10 @@ public class Compiler {
                 return cmd.compatibility(iter, COMPILE_TO, vars);
             }
             return cmd.parse(iter, vars);
+        }else {
+            warn("Unknown command: " + runCmd);
         }
-        String rest = iter.rest();
+        String rest = iter.removeNextWhitespace().rest();
         return runCmd + (rest==null ? "" : " " + rest);
     }
 

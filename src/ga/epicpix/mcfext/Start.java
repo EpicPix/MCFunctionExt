@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import static ga.epicpix.mcfext.Utils.error;
+
 public class Start {
 
     public static void main(String[] args) throws Exception {
@@ -19,16 +21,16 @@ public class Start {
     public static int run(String[] args) throws IOException {
         String compile = String.join(" ", args);
         if(compile.isEmpty()) {
-            System.err.println("Missing compile path in arguments");
+            error("Missing compile path in arguments");
             return 1;
         }
         File file = new File(compile);
         if(!file.exists()) {
-            System.err.println("File does not exist");
+            error("File does not exist");
             return 1;
         }
         if(!file.isDirectory()) {
-            System.err.println("File is not a directory");
+            error("File is not a directory");
             return 1;
         }
 
@@ -46,20 +48,20 @@ public class Start {
                         files.add(f);
                     }else {
                         if(!f.delete()) {
-                            System.err.println("Failed to delete compiled folder");
+                            error("Failed to delete compiled folder");
                             return 1;
                         }
                     }
                 }else {
                     if(!f.delete()) {
-                        System.err.println("Failed to delete compiled folder");
+                        error("Failed to delete compiled folder");
                         return 1;
                     }
                 }
             }
         }
         if(!compiled.mkdir()) {
-            System.err.println("Failed to create compiled folder");
+            error("Failed to create compiled folder");
             return 1;
         }
 
@@ -84,13 +86,13 @@ public class Start {
                     );
                 }
                 if (out.getParentFile().mkdirs()) {
-                    System.err.println("Failed to create folders");
+                    error("Failed to create folders");
                     return 1;
                 }
                 if (data != null) {
                     Files.write(out.toPath(), data.getBytes());
                 } else {
-                    System.err.println(out.getPath() + " could not be saved");
+                    error(out.getPath() + " could not be saved");
                 }
             }
             files.remove(0);
