@@ -9,6 +9,8 @@ import java.util.List;
 
 public class Compiler {
 
+    public static final MinecraftVersion COMPILE_TO = MinecraftVersion.MC1_17;
+
     public static String compileFile(File file) {
         try {
             return compile(new String(Files.readAllBytes(file.toPath())));
@@ -55,7 +57,12 @@ public class Compiler {
         String[] split = placedLine.split(" ", 2);
         Command cmd = Command.getCommand(split[0]);
         if(cmd!=null) {
-            return cmd.parse(split[1]);
+            boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId()<COMPILE_TO.getId() && cmd.getRemovedVersion().getId()>COMPILE_TO.getId());
+            String args = split.length > 1 ? split[1] : null;
+            if(!accessible) {
+                return cmd.compatibility(args, COMPILE_TO);
+            }
+            return cmd.parse(args);
         }
         return placedLine;
     }
