@@ -1,5 +1,6 @@
 package ga.epicpix.mcfext;
 
+import ga.epicpix.mcfext.commands.ReplaceItemCommand;
 import ga.epicpix.mcfext.commands.SayCommand;
 import java.util.ArrayList;
 
@@ -9,6 +10,7 @@ public abstract class Command {
 
     public static void init() {
         COMMANDS.add(new SayCommand());
+        COMMANDS.add(new ReplaceItemCommand());
     }
 
     private final String name;
