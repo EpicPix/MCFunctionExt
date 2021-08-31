@@ -27,7 +27,7 @@ public final class Variables {
         }
         String newStr = str;
         for(Entry<String, Object> entry : values.entrySet()) {
-            newStr = newStr.replaceAll("\\$" + Pattern.quote(entry.getKey()) + "\\b", entry.getValue().toString());
+            newStr = newStr.replaceAll("\\{\\$" + Pattern.quote(entry.getKey()) + "}", entry.getValue().toString());
         }
         return newStr;
     }

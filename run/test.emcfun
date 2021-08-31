@@ -1,4 +1,11 @@
 $A = 123
-say $A
+say {$A}things
+
 # This is ignored
-say $AA
+
+say {$AA}
+$AA = asd
+say {$AA}
+
+$CMD = say hi
+{$CMD} hi2
