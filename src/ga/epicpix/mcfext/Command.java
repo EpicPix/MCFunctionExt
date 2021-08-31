@@ -13,6 +13,7 @@ public abstract class Command {
         COMMANDS.add(new BlockDataCommand());
         COMMANDS.add(new BlockedCommands());
         COMMANDS.add(new DefaultGamemodeCommand());
+        COMMANDS.add(new FunctionCommand());
         COMMANDS.add(new ReplaceItemCommand());
         COMMANDS.add(new SayCommand());
     }
