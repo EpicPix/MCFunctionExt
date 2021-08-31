@@ -34,7 +34,7 @@ public class Compiler {
         Iterator<String> lineIterator = lines.iterator();
 
         while(lineIterator.hasNext()) {
-            String cline = compileLine(lineIterator.next(), lineIterator, variables);
+            String cline = compileLine(new CommandStringIterator(lineIterator.next()), lineIterator, variables);
             if (cline != null) {
                 output.add(cline);
             }
@@ -43,12 +43,12 @@ public class Compiler {
         return String.join("\n", output.toArray(new String[0]));
     }
 
-    public static String compileLine(String line, Iterator<String> lines, Variables vars) {
-        if(line.startsWith("$")) {
-            String[] data = line.substring(1).split(" ", 3);
-            String name = data[0];
-            String operation = data[1];
-            String value = vars.placeVariables(data[2]);
+    public static String compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
+        String wcmd = line.nextWord();
+        if(wcmd.startsWith("$")) {
+            String name = wcmd.substring(1);
+            String operation = line.nextWord();
+            String value = vars.placeVariables(line.removeNextWhitespace().rest());
             if(operation.equals("=")) {
                 vars.set(name, value);
             }else {
@@ -56,7 +56,7 @@ public class Compiler {
             }
             return null;
         }
-        String placedLine = vars.placeVariables(line);
+        String placedLine = vars.placeVariables(line.reset().rest());
         String[] split = placedLine.split(" ", 2);
         Command cmd = Command.getCommand(split[0]);
         if(cmd!=null) {
