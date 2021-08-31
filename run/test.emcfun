@@ -9,3 +9,7 @@ say {$AA}
 
 $CMD = say hi
 {$CMD} hi2
+
+$B = abcd
+$B = {$B}efgh
+say {$B}

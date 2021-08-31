@@ -43,7 +43,8 @@ public class Compiler {
             String[] data = line.substring(1).split(" ", 3);
             String name = data[0];
             String operation = data[1];
-            String value = data[2];
+            String value = vars.placeVariables(data[2]);
+            String.concat();
             if(operation.equals("=")) {
                 vars.set(name, value);
             }else {
