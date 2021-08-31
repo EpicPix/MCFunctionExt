@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static ga.epicpix.mcfext.Utils.error;
+import static ga.epicpix.mcfext.Utils.getErrorCount;
 
 public class Start {
 
@@ -96,6 +97,11 @@ public class Start {
                 }
             }
             files.remove(0);
+        }
+        int errorc = getErrorCount();
+        if(errorc!=0) {
+            System.out.println(errorc + " error" + (errorc==1?"":"s"));
+            return 1;
         }
         return 0;
     }

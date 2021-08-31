@@ -2,6 +2,8 @@ package ga.epicpix.mcfext;
 
 public final class Utils {
 
+    private static int errorCount = 0;
+
     private Utils() {}
 
     public static void info(Object msg) {
@@ -14,6 +16,10 @@ public final class Utils {
 
     public static void error(Object msg) {
         System.err.println("[ERROR] " + msg);
+        errorCount++;
     }
 
+    public static int getErrorCount() {
+        return errorCount;
+    }
 }
