@@ -11,7 +11,7 @@ public class ReplaceItemCommand extends Command {
         super("replaceitem", MinecraftVersion.PRE, MinecraftVersion.MC1_17);
     }
 
-    public String compatibility(CommandStringIterator data, MinecraftVersion version, Variables vars) {
+    public String compatibility(String commandName, CommandStringIterator data, MinecraftVersion version, Variables vars) {
         return "item replace" + data.rest();
     }
 

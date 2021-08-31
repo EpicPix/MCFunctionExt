@@ -78,16 +78,20 @@ public class Compiler {
         }
         String runCmd = vars.placeVariables(wcmd);
         CommandStringIterator iter = new CommandStringIterator(runCmd + " " + line.removeNextWhitespace().rest());
-        runCmd = iter.nextWord();
-        Command cmd = Command.getCommand(runCmd);
-        if(cmd!=null) {
-            boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId()<COMPILE_TO.getId() && cmd.getRemovedVersion().getId()>COMPILE_TO.getId());
-            if(!accessible) {
-                return cmd.compatibility(runCmd, iter, COMPILE_TO, vars);
+        while(true) {
+            runCmd = iter.nextWord();
+            Command cmd = Command.getCommand(runCmd);
+            if (cmd != null) {
+                boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId() < COMPILE_TO.getId() && cmd.getRemovedVersion().getId() > COMPILE_TO.getId());
+                if (!accessible) {
+                    iter = new CommandStringIterator(cmd.compatibility(runCmd, iter, COMPILE_TO, vars));
+                }else {
+                    return cmd.parse(runCmd, iter, vars);
+                }
+            } else {
+                warn("Unknown command: " + runCmd);
+                break;
             }
-            return cmd.parse(runCmd, iter, vars);
-        }else {
-            warn("Unknown command: " + runCmd);
         }
         String rest = iter.removeNextWhitespace().rest();
         return runCmd + (rest==null ? "" : " " + rest);
