@@ -6,6 +6,7 @@ import ga.epicpix.mcfext.CommandStringIterator;
 import ga.epicpix.mcfext.AbstractCriterion;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.ResourceLocation;
+import ga.epicpix.mcfext.Selector;
 import ga.epicpix.mcfext.Variables;
 
 import static ga.epicpix.mcfext.Utils.error;
@@ -23,7 +24,7 @@ public class AdvancementCommand extends Command {
             error("Advancement mode not grant/revoke, found " + mode);
             return null;
         }
-        String selector = data.nextWord(); //TODO Will not work with spaces
+        Selector selector = data.nextSelector();
         String type = data.nextWord();
 
         if(type.equals("everything")) {
@@ -37,7 +38,6 @@ public class AdvancementCommand extends Command {
             Advancement advancement = Advancement.getAdvancement(location);
             if(advancement == null && location.getNamespace().equals("minecraft")) {
                 warn("Unknown advancement: " + location); //TODO Will be error after adding all advancements
-                return null;
             }
 
             if(type.equals("only")) {

@@ -11,21 +11,40 @@ public class CommandStringIterator {
         this.str = str;
     }
 
+    public boolean hasNext() {
+        return index < str.length();
+    }
+
+    public char seek() {
+        if(!hasNext()) return '\0';
+        return str.charAt(index);
+    }
+
+    public char nextChar() {
+        if(!hasNext()) return '\0';
+        return str.charAt(index++);
+    }
+
+    public char seekBack() {
+        if(!hasNext()) return '\0';
+        return str.charAt(index-2);
+    }
+
     public String nextWord() {
-        if(index >= str.length()) return null;
+        if(!hasNext()) return null;
         int len = 0, skip = index;
         boolean started = false;
         for(int i = index; i<str.length(); i++) {
             char c = str.charAt(i);
             if(!started) {
-                if(c == '\n' || c == '\r' || c == '\t' || c == ' ') {
+                if(Character.isWhitespace(c)) {
                     skip++;
                 }else {
                     started = true;
                 }
             }
             if(started) {
-                if(c == '\n' || c == '\r' || c == '\t' || c == ' ') {
+                if(Character.isWhitespace(c)) {
                     break;
                 }
                 len++;
@@ -49,10 +68,14 @@ public class CommandStringIterator {
         return new ResourceLocation(nextWord());
     }
 
+    public Selector nextSelector() {
+        return Selector.nextSelector(this);
+    }
+
     public CommandStringIterator removeNextWhitespace() {
         while(index < str.length()) {
             char c = str.charAt(index);
-            if(!(c == '\n' || c == '\r' || c == '\t' || c == ' ')) {
+            if(!Character.isWhitespace(c)) {
                 break;
             }
             index++;
