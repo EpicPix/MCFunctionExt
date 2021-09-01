@@ -2,6 +2,7 @@ package ga.epicpix.mcfext;
 
 public enum MinecraftVersion {
 
+    TODO(0),
     PRE(0),
     MC1_12(1),
     MC1_13(2),

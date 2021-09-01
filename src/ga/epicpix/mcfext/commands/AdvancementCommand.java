@@ -1,12 +1,15 @@
 package ga.epicpix.mcfext.commands;
 
+import ga.epicpix.mcfext.Advancement;
 import ga.epicpix.mcfext.Command;
 import ga.epicpix.mcfext.CommandStringIterator;
+import ga.epicpix.mcfext.Criterion;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.Variables;
 
 import static ga.epicpix.mcfext.Utils.error;
+import static ga.epicpix.mcfext.Utils.warn;
 
 public class AdvancementCommand extends Command {
 
@@ -28,14 +31,27 @@ public class AdvancementCommand extends Command {
         }else {
             ResourceLocation location = data.nextResourceLocation();
             if(!location.isValid()) {
-                error("Invalid Resource Locator");
+                error("Invalid Resource Location");
+                return null;
+            }
+            Advancement advancement = Advancement.getAdvancement(location);
+            if(advancement == null && location.getNamespace().equals("minecraft")) {
+                warn("Unknown advancement: " + location); //TODO Will be error after adding all advancements
                 return null;
             }
 
             if(type.equals("only")) {
-                //TODO Add criterion checking
-                String criterion = data.nextWord();
-                return commandName + " " + mode + " " + selector + " " + type + " " + location + (criterion==null?"":" " + criterion);
+                String criterionName = data.nextWord();
+                if(advancement != null) {
+                    Criterion criterion = advancement.getCriterion(criterionName);
+                    if(criterion == null) {
+                        error("Unknown criterion: " + criterionName);
+                        return null;
+                    }else {
+                        criterionName = criterion.getNames()[0];
+                    }
+                }
+                return commandName + " " + mode + " " + selector + " " + type + " " + location + (criterionName == null ? "" : " " + criterionName);
             }else if(type.equals("from") || type.equals("through") || type.equals("until")) {
                 return commandName + " " + mode + " " + selector + " " + type + " " + location;
             }else {
