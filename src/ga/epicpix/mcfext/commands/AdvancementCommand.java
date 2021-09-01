@@ -60,8 +60,5 @@ public class AdvancementCommand extends Command {
             }
 
         }
-
-        //TODO If it's a minecraft resource location then check for the advancement if it exists
-
     }
 }

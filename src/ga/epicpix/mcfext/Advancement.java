@@ -9,7 +9,7 @@ public class Advancement implements Resource, MCVersionDep {
     public static final ArrayList<Advancement> ADVANCEMENTS = new ArrayList<>();
 
     public static void init() {
-        ADVANCEMENTS.add(new Advancement("minecraft:adventure/adventuring_time", TODO, Biome.asCriteria()));
+        ADVANCEMENTS.add(new Advancement("minecraft:adventure/adventuring_time", TODO, Biome.asCriteria())); //TODO This adds every biome but this advancement doesn't have every biome
         ADVANCEMENTS.add(new Advancement("minecraft:adventure/arbalistic", TODO, "arbalistic"));
         ADVANCEMENTS.add(new Advancement("minecraft:adventure/bullseye", TODO, "bullseye"));
         ADVANCEMENTS.add(new Advancement("minecraft:adventure/hero_of_the_village", TODO, "hero_of_the_village"));
