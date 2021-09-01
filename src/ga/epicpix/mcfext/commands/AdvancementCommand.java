@@ -3,7 +3,7 @@ package ga.epicpix.mcfext.commands;
 import ga.epicpix.mcfext.Advancement;
 import ga.epicpix.mcfext.Command;
 import ga.epicpix.mcfext.CommandStringIterator;
-import ga.epicpix.mcfext.Criterion;
+import ga.epicpix.mcfext.AbstractCriterion;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.Variables;
@@ -43,7 +43,7 @@ public class AdvancementCommand extends Command {
             if(type.equals("only")) {
                 String criterionName = data.nextWord();
                 if(advancement != null) {
-                    Criterion criterion = advancement.getCriterion(criterionName);
+                    AbstractCriterion criterion = advancement.getCriterion(criterionName);
                     if(criterion == null) {
                         error("Unknown criterion: " + criterionName);
                         return null;

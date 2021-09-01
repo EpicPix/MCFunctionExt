@@ -94,11 +94,11 @@ public class Biome implements MCVersionDep, Resource {
         return BIOMES.toArray(new Biome[0]);
     }
 
-    public static Criterion[] asCriteria() {
-        Criterion[] criteria = new Criterion[BIOMES.size()];
+    public static AbstractCriterion[] asCriteria() {
+        AbstractCriterion[] criteria = new AbstractCriterion[BIOMES.size()];
         for(int i = 0; i<criteria.length; i++) {
             Biome biome = BIOMES.get(i);
-            criteria[i] = new Criterion(biome.loc) {
+            criteria[i] = new AbstractCriterion(biome.loc) {
                 public MinecraftVersion getAddedVersion() {
                     return biome.getAddedVersion();
                 }

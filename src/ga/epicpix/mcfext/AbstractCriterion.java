@@ -2,16 +2,16 @@ package ga.epicpix.mcfext;
 
 import java.util.ArrayList;
 
-public abstract class Criterion implements MCVersionDep {
+public abstract class AbstractCriterion implements MCVersionDep {
 
     private String name;
     private ResourceLocation location;
 
-    public Criterion(String name) {
+    public AbstractCriterion(String name) {
         this.name = name;
     }
 
-    public Criterion(ResourceLocation location) {
+    public AbstractCriterion(ResourceLocation location) {
         this.location = location;
     }
 
