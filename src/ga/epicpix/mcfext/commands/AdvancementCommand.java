@@ -26,7 +26,7 @@ public class AdvancementCommand extends Command {
         if(type.equals("everything")) {
             return commandName + " " + mode + " " + selector + " " + type;
         }else {
-            ResourceLocation location = new ResourceLocation(data.nextWord());
+            ResourceLocation location = data.nextResourceLocation();
             if(!location.isValid()) {
                 error("Invalid Resource Locator");
                 return null;
@@ -35,9 +35,9 @@ public class AdvancementCommand extends Command {
             if(type.equals("only")) {
                 //TODO Add criterion checking
                 String criterion = data.nextWord();
-                return commandName + " " + mode + " " + selector + " " + type + " " + location.getResourceLocation() + (criterion==null?"":" " + criterion);
+                return commandName + " " + mode + " " + selector + " " + type + " " + location + (criterion==null?"":" " + criterion);
             }else if(type.equals("from") || type.equals("through") || type.equals("until")) {
-                return commandName + " " + mode + " " + selector + " " + type + " " + location.getResourceLocation();
+                return commandName + " " + mode + " " + selector + " " + type + " " + location;
             }else {
                 error("Unknown advancement type found " + type);
                 return null;

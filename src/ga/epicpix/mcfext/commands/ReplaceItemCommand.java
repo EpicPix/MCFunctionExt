@@ -12,7 +12,7 @@ public class ReplaceItemCommand extends Command {
     }
 
     public String compatibility(String commandName, CommandStringIterator data, MinecraftVersion version, Variables vars) {
-        return "item replace" + data.rest();
+        return "item replace " + data.rest();
     }
 
     public String parse(String commandName, CommandStringIterator data, Variables vars) {

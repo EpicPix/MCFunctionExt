@@ -1,5 +1,7 @@
 package ga.epicpix.mcfext;
 
+import static ga.epicpix.mcfext.Utils.error;
+
 public class CommandStringIterator {
 
     private final String str;
@@ -31,6 +33,20 @@ public class CommandStringIterator {
         }
         index = skip + len;
         return str.substring(skip, skip + len);
+    }
+
+    public int nextInt() {
+        String word = nextWord();
+        try {
+            return Integer.decode(word);
+        } catch(NumberFormatException e) {
+            error("Not a number");
+            return -1;
+        }
+    }
+
+    public ResourceLocation nextResourceLocation() {
+        return new ResourceLocation(nextWord());
     }
 
     public CommandStringIterator removeNextWhitespace() {
