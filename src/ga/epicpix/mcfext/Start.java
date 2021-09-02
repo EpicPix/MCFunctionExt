@@ -2,11 +2,9 @@ package ga.epicpix.mcfext;
 
 import ga.epicpix.mcfext.advancements.Advancement;
 import ga.epicpix.mcfext.command.Command;
+import ga.epicpix.mcfext.datapacks.Datapack;
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.ArrayList;
-import java.util.Collections;
 
 import static ga.epicpix.mcfext.Utils.error;
 import static ga.epicpix.mcfext.Utils.getErrorCount;
@@ -55,43 +53,10 @@ public class Start {
         if(compiled.exists()) {
             deleteFolder(compiled);
         }
-        if(!compiled.mkdir()) {
-            error("Failed to create compiled folder");
-            return 1;
-        }
 
-        ArrayList<File> files = new ArrayList<>();
-        Collections.addAll(files, file.listFiles());
-        while(files.size()!=0) {
-            File f = files.get(0);
-            if(f.isDirectory()) {
-                File[] containing = f.listFiles();
-                if(containing!=null) {
-                    Collections.addAll(files, containing);
-                }
-            }else {
-                File out = new File(compiled, f.getPath()
-                        .split("/", 2)[1]
-                );
-                String data;
-                if(f.getName().endsWith(".emcfun")) {
-                    out = new File(compiled, f.getPath()
-                            .split("/", 2)[1]
-                            .split("\\.", 2)[0] + ".mcfunction"
-                    );
-                    data = Compiler.compileFile(f);
-                }else {
-                    data = new String(Files.readAllBytes(f.toPath()));
-                }
-                out.getParentFile().mkdirs();
-                if (data != null) {
-                    Files.write(out.toPath(), data.getBytes());
-                } else {
-                    error(out.getPath() + " could not be saved");
-                }
-            }
-            files.remove(0);
-        }
+        Datapack pack = Datapack.readDatapack(file);
+        pack.save(compiled);
+
         int errorc = getErrorCount();
         if(errorc!=0) {
             System.out.println(errorc + " error" + (errorc==1?"":"s"));
