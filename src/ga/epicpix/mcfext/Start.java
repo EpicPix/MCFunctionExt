@@ -61,7 +61,7 @@ public class Start {
         }
 
         ArrayList<File> files = new ArrayList<>();
-        files.add(file);
+        Collections.addAll(files, file.listFiles());
         while(files.size()!=0) {
             File f = files.get(0);
             if(f.isDirectory()) {
