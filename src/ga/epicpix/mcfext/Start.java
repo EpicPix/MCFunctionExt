@@ -1,5 +1,6 @@
 package ga.epicpix.mcfext;
 
+import com.google.gson.JsonObject;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -34,6 +35,7 @@ public class Start {
     }
 
     public static int run(String[] args) throws IOException {
+        new JsonObject();
         String compile = String.join(" ", args);
         if(compile.isEmpty()) {
             error("Missing compile path in arguments");

@@ -14,6 +14,9 @@ jobs:
         with:
           java-version: '8'
 
+      - run: "wget -O gson.jar https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.2/gson-2.8.2.jar"
+        working-directory: src/
+
       - name: Compile
         run: javac -cp "." $(find . -name "*.java")
         shell: bash
