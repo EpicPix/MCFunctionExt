@@ -1,7 +1,7 @@
-package ga.epicpix.mcfext.commands;
+package ga.epicpix.mcfext.command.impl;
 
-import ga.epicpix.mcfext.Command;
-import ga.epicpix.mcfext.CommandStringIterator;
+import ga.epicpix.mcfext.command.Command;
+import ga.epicpix.mcfext.command.CommandStringIterator;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.Variables;
 

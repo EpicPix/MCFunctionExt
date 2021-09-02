@@ -1,4 +1,7 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.command;
+
+import ga.epicpix.mcfext.ResourceLocation;
+import ga.epicpix.mcfext.command.selector.Selector;
 
 import static ga.epicpix.mcfext.Utils.error;
 

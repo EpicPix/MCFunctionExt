@@ -1,5 +1,8 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.advancements;
 
+import ga.epicpix.mcfext.MCVersionDep;
+import ga.epicpix.mcfext.MinecraftVersion;
+import ga.epicpix.mcfext.ResourceLocation;
 import java.util.ArrayList;
 
 public abstract class AbstractCriterion implements MCVersionDep {

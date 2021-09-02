@@ -1,12 +1,12 @@
-package ga.epicpix.mcfext.commands;
+package ga.epicpix.mcfext.command.impl;
 
-import ga.epicpix.mcfext.Advancement;
-import ga.epicpix.mcfext.Command;
-import ga.epicpix.mcfext.CommandStringIterator;
-import ga.epicpix.mcfext.AbstractCriterion;
+import ga.epicpix.mcfext.advancements.Advancement;
+import ga.epicpix.mcfext.command.Command;
+import ga.epicpix.mcfext.command.CommandStringIterator;
+import ga.epicpix.mcfext.advancements.AbstractCriterion;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.ResourceLocation;
-import ga.epicpix.mcfext.Selector;
+import ga.epicpix.mcfext.command.selector.Selector;
 import ga.epicpix.mcfext.Variables;
 
 import static ga.epicpix.mcfext.Utils.error;

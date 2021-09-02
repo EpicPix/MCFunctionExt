@@ -1,5 +1,6 @@
 package ga.epicpix.mcfext;
 
+import ga.epicpix.mcfext.advancements.AbstractCriterion;
 import java.util.ArrayList;
 
 public class Biome implements MCVersionDep, Resource {

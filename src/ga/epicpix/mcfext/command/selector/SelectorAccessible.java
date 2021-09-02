@@ -1,4 +1,4 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.command.selector;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

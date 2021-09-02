@@ -1,7 +1,12 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.advancements;
 
 import static ga.epicpix.mcfext.MinecraftVersion.*;
 
+import ga.epicpix.mcfext.Biome;
+import ga.epicpix.mcfext.MCVersionDep;
+import ga.epicpix.mcfext.MinecraftVersion;
+import ga.epicpix.mcfext.Resource;
+import ga.epicpix.mcfext.ResourceLocation;
 import java.util.ArrayList;
 
 public class Advancement implements Resource, MCVersionDep {

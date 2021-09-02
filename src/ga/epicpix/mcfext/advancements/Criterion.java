@@ -1,4 +1,7 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.advancements;
+
+import ga.epicpix.mcfext.MinecraftVersion;
+import ga.epicpix.mcfext.ResourceLocation;
 
 public class Criterion extends AbstractCriterion {
 

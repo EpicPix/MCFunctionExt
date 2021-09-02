@@ -1,9 +1,10 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.command.selector;
 
-import ga.epicpix.mcfext.SelectorAccessible.Type;
+import ga.epicpix.mcfext.command.selector.SelectorAccessible.Type;
+import ga.epicpix.mcfext.command.CommandStringIterator;
 import java.lang.reflect.Field;
 
-import static ga.epicpix.mcfext.SelectorAccessible.Type.*;
+import static ga.epicpix.mcfext.command.selector.SelectorAccessible.Type.*;
 import static ga.epicpix.mcfext.Utils.error;
 
 public class EntitySelector extends Selector {

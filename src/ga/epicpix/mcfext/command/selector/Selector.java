@@ -1,6 +1,7 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.command.selector;
 
-import ga.epicpix.mcfext.EntitySelector.TargetSelector;
+import ga.epicpix.mcfext.command.selector.EntitySelector.TargetSelector;
+import ga.epicpix.mcfext.command.CommandStringIterator;
 
 import static ga.epicpix.mcfext.Utils.error;
 

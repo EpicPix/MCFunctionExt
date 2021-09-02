@@ -1,4 +1,4 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.command.selector;
 
 public class StaticSelector extends Selector {
 
