@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 import static ga.epicpix.mcfext.SelectorAccessible.Type.*;
 import static ga.epicpix.mcfext.Utils.error;
 
-public class EntitySelector {
+public class EntitySelector extends Selector {
 
     public enum TargetSelector {
         NEAREST("r"),
@@ -36,8 +36,11 @@ public class EntitySelector {
         }
     }
 
+    private final TargetSelector targetSelector;
 
-    private TargetSelector targetSelector;
+    public EntitySelector(TargetSelector sel) {
+        targetSelector = sel;
+    }
 
     @SelectorAccessible(DOUBLE) private Double x;
     @SelectorAccessible(DOUBLE) private Double y;
@@ -100,7 +103,7 @@ public class EntitySelector {
         return null;
     }
 
-    private void apply(String data) {
+    void apply(String data) {
         if(!data.isEmpty()) {
             CommandStringIterator iter = new CommandStringIterator(data);
             boolean first = true;
@@ -147,68 +150,7 @@ public class EntitySelector {
         }
     }
 
-    public static EntitySelector nextSelector(CommandStringIterator iter) {
-        iter.removeNextWhitespace();
-
-        EntitySelector selector = new EntitySelector();
-        StringBuilder temp = new StringBuilder();
-
-        if(iter.nextChar() != '@') {
-            error("Invalid selector");
-            return null;
-        }
-        boolean more = false;
-        while(iter.hasNext()) {
-            if((iter.seek() == '[' && (more = true)) || (Character.isWhitespace(iter.seek()) && iter.nextChar() != 0)) {
-                break;
-            }else {
-                temp.append(iter.nextChar());
-            }
-        }
-
-        selector.targetSelector = TargetSelector.getTargetSelector(temp.toString());
-
-        if(selector.targetSelector == null) {
-            error("Invalid selector: @" + temp);
-            return null;
-        }
-
-        if(more) {
-            int indent = -1;
-            boolean finished = false;
-            boolean string = false;
-            StringBuilder data = new StringBuilder();
-            while(iter.hasNext()) {
-                char c = iter.nextChar();
-                if(c=='\"') {
-                    if(iter.seekBack()!='\\') {
-                        string = !string;
-                    }
-                }
-
-                if(!string) {
-                    if(c == '[') {
-                        if(indent++ == -1) {
-                            continue;
-                        }
-                    }else if(c == ']') {
-                        indent--;
-                        if(indent == -1) {
-                            finished = true;
-                            break;
-                        }
-                    }
-                }
-
-                data.append(c);
-            }
-            if(!finished) {
-                error("Selector not finished");
-            }
-            selector.apply(data.toString());
-        }
-
-        return selector;
+    public TargetSelector getTargetSelector() {
+        return targetSelector;
     }
-
 }
