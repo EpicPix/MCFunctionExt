@@ -18,6 +18,6 @@ jobs:
         working-directory: src/
 
       - name: Compile
-        run: javac -cp "." $(find . -name "*.java")
+        run: javac -cp ".:./gson.jar" $(find . -name "*.java")
         shell: bash
         working-directory: src/
