@@ -20,6 +20,19 @@ public class Start {
         }
     }
 
+    public static void deleteFolder(File folder) {
+        File[] contents = folder.listFiles();
+        if(contents != null) {
+            for(File file : contents) {
+                if(file.isDirectory()) {
+                    deleteFolder(file);
+                }
+                file.delete();
+            }
+        }
+        folder.delete();
+    }
+
     public static int run(String[] args) throws IOException {
         String compile = String.join(" ", args);
         if(compile.isEmpty()) {
@@ -38,29 +51,7 @@ public class Start {
 
         File compiled = new File("compiled");
         if(compiled.exists()) {
-            ArrayList<File> files = new ArrayList<>();
-            files.add(compiled);
-            while(files.size()!=0) {
-                File f = files.get(0);
-                files.remove(0);
-                if(f.isDirectory()) {
-                    File[] containing = f.listFiles();
-                    if(containing!=null && containing.length!=0) {
-                        Collections.addAll(files, containing);
-                        files.add(f);
-                    }else {
-                        if(!f.delete()) {
-                            error("Failed to delete compiled folder");
-                            return 1;
-                        }
-                    }
-                }else {
-                    if(!f.delete()) {
-                        error("Failed to delete compiled folder");
-                        return 1;
-                    }
-                }
-            }
+            deleteFolder(compiled);
         }
         if(!compiled.mkdir()) {
             error("Failed to create compiled folder");
@@ -77,20 +68,20 @@ public class Start {
                     Collections.addAll(files, containing);
                 }
             }else {
-                String data = Compiler.compileFile(f);
                 File out = new File(compiled, f.getPath()
                         .split("/", 2)[1]
-                );;
+                );
+                String data;
                 if(f.getName().endsWith(".emcfun")) {
                     out = new File(compiled, f.getPath()
                             .split("/", 2)[1]
                             .split("\\.", 2)[0] + ".mcfunction"
                     );
+                    data = Compiler.compileFile(f);
+                }else {
+                    data = new String(Files.readAllBytes(f.toPath()));
                 }
-                if (out.getParentFile().mkdirs()) {
-                    error("Failed to create folders");
-                    return 1;
-                }
+                out.getParentFile().mkdirs();
                 if (data != null) {
                     Files.write(out.toPath(), data.getBytes());
                 } else {
