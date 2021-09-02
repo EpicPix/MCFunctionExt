@@ -6,7 +6,7 @@ import java.lang.reflect.Field;
 import static ga.epicpix.mcfext.SelectorAccessible.Type.*;
 import static ga.epicpix.mcfext.Utils.error;
 
-public class Selector {
+public class EntitySelector {
 
     public enum TargetSelector {
         NEAREST("r"),
@@ -49,7 +49,7 @@ public class Selector {
         builder.append("[");
         boolean has = false;
         try {
-            for(Field f : Selector.class.getDeclaredFields()) {
+            for(Field f : EntitySelector.class.getDeclaredFields()) {
                 f.setAccessible(true);
                 if (f.isAnnotationPresent(SelectorAccessible.class)) {
                     if (f.get(this) != null) {
@@ -123,7 +123,7 @@ public class Selector {
 
                 try {
 
-                    Field f = Selector.class.getDeclaredField(key.toString());
+                    Field f = EntitySelector.class.getDeclaredField(key.toString());
                     f.setAccessible(true);
                     if(f.isAnnotationPresent(SelectorAccessible.class)) {
                         SelectorAccessible anno = f.getAnnotation(SelectorAccessible.class);
@@ -147,10 +147,10 @@ public class Selector {
         }
     }
 
-    public static Selector nextSelector(CommandStringIterator iter) {
+    public static EntitySelector nextSelector(CommandStringIterator iter) {
         iter.removeNextWhitespace();
 
-        Selector selector = new Selector();
+        EntitySelector selector = new EntitySelector();
         StringBuilder temp = new StringBuilder();
 
         if(iter.nextChar() != '@') {

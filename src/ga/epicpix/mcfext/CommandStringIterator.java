@@ -68,8 +68,8 @@ public class CommandStringIterator {
         return new ResourceLocation(nextWord());
     }
 
-    public Selector nextSelector() {
-        return Selector.nextSelector(this);
+    public EntitySelector nextSelector() {
+        return EntitySelector.nextSelector(this);
     }
 
     public CommandStringIterator removeNextWhitespace() {

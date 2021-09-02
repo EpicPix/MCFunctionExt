@@ -6,7 +6,7 @@ import ga.epicpix.mcfext.CommandStringIterator;
 import ga.epicpix.mcfext.AbstractCriterion;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.ResourceLocation;
-import ga.epicpix.mcfext.Selector;
+import ga.epicpix.mcfext.EntitySelector;
 import ga.epicpix.mcfext.Variables;
 
 import static ga.epicpix.mcfext.Utils.error;
@@ -24,7 +24,7 @@ public class AdvancementCommand extends Command {
             error("Advancement mode not grant/revoke, found " + mode);
             return null;
         }
-        Selector selector = data.nextSelector();
+        EntitySelector selector = data.nextSelector();
         String type = data.nextWord();
 
         if(type.equals("everything")) {
