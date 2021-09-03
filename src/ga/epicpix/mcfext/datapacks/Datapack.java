@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.regex.Pattern;
 
 import static ga.epicpix.mcfext.Utils.error;
 
@@ -41,7 +42,7 @@ public class Datapack {
                     }
                 }else {
                     if(f.getName().endsWith(".emcfun")) {
-                        unknown.addFunction(f.getPath().split("/", 2)[1].split("\\.", 2)[0], Compiler.compileFunctionFile(f));
+                        unknown.addFunction(f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], Compiler.compileFunctionFile(f));
                     }
 
                 }

@@ -1,36 +1,24 @@
 package ga.epicpix.mcfext.command;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.Variables;
-import ga.epicpix.mcfext.command.impl.AdvancementCommand;
-import ga.epicpix.mcfext.command.impl.DefaultGamemodeCommand;
-import ga.epicpix.mcfext.command.impl.FunctionCommand;
-import ga.epicpix.mcfext.command.impl.SayCommand;
 import ga.epicpix.mcfext.exceptions.NoCompatibilityException;
+
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public abstract class Command {
 
-    private static final ArrayList<CommandBuilder> COMMANDS = new ArrayList<>();
+    private static final ArrayList<CommandBuilder> COMMANDS;
 
-    public static void init() {
-        COMMANDS.add(new CommandBuilder(AdvancementCommand.class));
-        COMMANDS.add(new CommandBuilder(DefaultGamemodeCommand.class));
-        COMMANDS.add(new CommandBuilder(FunctionCommand.class));
-        COMMANDS.add(new CommandBuilder(SayCommand.class));
+    static {
+        COMMANDS = new Gson().fromJson(new InputStreamReader(Command.class.getClassLoader().getResourceAsStream("assets/commands.json")), new TypeToken<ArrayList<Command>>(){}.getType());
     }
 
-    private final String name;
-    private final MinecraftVersion addedIn;
-    private final MinecraftVersion removedIn;
-    private final String[] aliases;
-
-    public Command(String name, MinecraftVersion addedIn, MinecraftVersion removedIn, String... aliases) {
-        this.name = name;
-        this.addedIn = addedIn;
-        this.removedIn = removedIn;
-        this.aliases = aliases;
-    }
+    private String name;
+    private CommandVersion version;
 
     public String parse(String commandName, CommandStringIterator data, Variables vars) {
         return commandName + " " + vars.placeVariables(data.rest());
@@ -40,17 +28,8 @@ public abstract class Command {
         throw new NoCompatibilityException(commandName);
     }
 
-    public String getName() {
-        if(name==null) return aliases[0];
-        return name;
-    }
-
-    public MinecraftVersion getAddedVersion() {
-        return addedIn;
-    }
-
-    public MinecraftVersion getRemovedVersion() {
-        return removedIn;
+    public CommandVersion getVersion() {
+        return version;
     }
 
     public static class CommandBuilder {

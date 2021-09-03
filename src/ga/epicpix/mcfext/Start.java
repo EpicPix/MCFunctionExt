@@ -13,7 +13,6 @@ public class Start {
 
     public static void main(String[] args) throws Exception {
         Advancement.init();
-        Command.init();
         int ret = run(args);
         if(ret!=0) {
             System.exit(ret);
