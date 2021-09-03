@@ -14,16 +14,16 @@ import java.util.ArrayList;
 
 public abstract class Command {
 
-    private static final ArrayList<Command> COMMANDS = new ArrayList<>();
+    private static final ArrayList<CommandBuilder> COMMANDS = new ArrayList<>();
 
     public static void init() {
-        COMMANDS.add(new AdvancementCommand());
-        COMMANDS.add(new BlockDataCommand());
-        COMMANDS.add(new BlockedCommands());
-        COMMANDS.add(new DefaultGamemodeCommand());
-        COMMANDS.add(new FunctionCommand());
-        COMMANDS.add(new ReplaceItemCommand());
-        COMMANDS.add(new SayCommand());
+        COMMANDS.add(new CommandBuilder(AdvancementCommand.class));
+        COMMANDS.add(new CommandBuilder(BlockDataCommand.class));
+        COMMANDS.add(new CommandBuilder(BlockedCommands.class));
+        COMMANDS.add(new CommandBuilder(DefaultGamemodeCommand.class));
+        COMMANDS.add(new CommandBuilder(FunctionCommand.class));
+        COMMANDS.add(new CommandBuilder(ReplaceItemCommand.class));
+        COMMANDS.add(new CommandBuilder(SayCommand.class));
     }
 
     private final String name;
@@ -59,12 +59,29 @@ public abstract class Command {
         return removedIn;
     }
 
-    public static Command getCommand(String name) {
-        for(Command cmd : COMMANDS) {
-            if(cmd.getName().equalsIgnoreCase(name)) {
-                return cmd;
-            }
+    public static class CommandBuilder {
+
+        private final Class<? extends Command> type;
+
+        CommandBuilder(Class<? extends Command> type) {
+            this.type = type;
         }
+
+        public Command create() {
+            try {
+                return type.newInstance();
+            } catch (InstantiationException | IllegalAccessException e) {}
+            return null;
+        }
+
+    }
+
+    public static Command getCommand(String name) {
+//        for(CommandBuilder cmd : COMMANDS) {
+//            if(cmd.getName().equalsIgnoreCase(name)) {
+//                return cmd;
+//            }
+//        }
         return null;
     }
 

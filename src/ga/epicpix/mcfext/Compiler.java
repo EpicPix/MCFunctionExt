@@ -16,34 +16,34 @@ public class Compiler {
 
     public static final MinecraftVersion COMPILE_TO = MinecraftVersion.MC1_17;
 
-    public static String compileFile(File file) {
+    public static ArrayList<Command> compileFunctionFile(File file) {
         try {
-            return compile(new String(Files.readAllBytes(file.toPath())));
+            return compileFunction(new String(Files.readAllBytes(file.toPath())));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static String compile(String data) {
+    public static ArrayList<Command> compileFunction(String data) {
         List<String> lines = new ArrayList<>();
         Collections.addAll(lines, data.split("\n"));
         lines = compile0(lines);
 
         Variables variables = new Variables();
 
-        ArrayList<String> output = new ArrayList<>();
+        ArrayList<Command> output = new ArrayList<>();
 
         Iterator<String> lineIterator = lines.iterator();
 
         while(lineIterator.hasNext()) {
-            String cline = compileLine(new CommandStringIterator(lineIterator.next()), lineIterator, variables);
+            Command cline = compileLine(new CommandStringIterator(lineIterator.next()), lineIterator, variables);
             if (cline != null) {
                 output.add(cline);
             }
         }
 
-        return String.join("\n", output.toArray(new String[0]));
+        return output;
     }
 
     private static List<String> compile0(List<String> lines) {
@@ -65,7 +65,7 @@ public class Compiler {
         return out;
     }
 
-    public static String compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
+    public static Command compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
         String wcmd = line.nextWord();
         if(wcmd.startsWith("$")) {
             String name = wcmd.substring(1);
@@ -80,23 +80,24 @@ public class Compiler {
         }
         String runCmd = vars.placeVariables(wcmd);
         CommandStringIterator iter = new CommandStringIterator(runCmd + " " + line.removeNextWhitespace().rest());
-        while(true) {
-            runCmd = iter.nextWord();
-            Command cmd = Command.getCommand(runCmd);
-            if (cmd != null) {
-                boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId() < COMPILE_TO.getId() && cmd.getRemovedVersion().getId() > COMPILE_TO.getId());
-                if (!accessible) {
-                    iter = new CommandStringIterator(cmd.compatibility(runCmd, iter, COMPILE_TO, vars));
-                }else {
-                    return cmd.parse(runCmd, iter, vars);
-                }
-            } else {
-                warn("Unknown command: " + runCmd);
-                break;
-            }
-        }
+//        while(true) {
+//            runCmd = iter.nextWord();
+//            Command cmd = Command.getCommand(runCmd).create();
+//            if (cmd != null) {
+//                boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId() < COMPILE_TO.getId() && cmd.getRemovedVersion().getId() > COMPILE_TO.getId());
+//                if (!accessible) {
+//                    iter = new CommandStringIterator(cmd.compatibility(runCmd, iter, COMPILE_TO, vars));
+//                }else {
+//                    return cmd.parse(runCmd, iter, vars);
+//                }
+//            } else {
+//                warn("Unknown command: " + runCmd);
+//                break;
+//            }
+//        }
         String rest = iter.removeNextWhitespace().rest();
-        return runCmd + (rest==null ? "" : " " + rest);
+//        return runCmd + (rest==null ? "" : " " + rest);
+        return null;
     }
 
 }

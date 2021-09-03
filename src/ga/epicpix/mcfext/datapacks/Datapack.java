@@ -41,7 +41,7 @@ public class Datapack {
                     }
                 }else {
                     if(f.getName().endsWith(".emcfun")) {
-                        unknown.addFunction(f.getPath().split("/", 2)[1].split("\\.", 2)[0], Compiler.compileFile(f));
+                        unknown.addFunction(f.getPath().split("/", 2)[1].split("\\.", 2)[0], Compiler.compileFunctionFile(f));
                     }
 
                 }
@@ -78,7 +78,7 @@ public class Datapack {
                 for(Function function : functions) {
                     File out = new File(fs, function.getResourceLocation().getLocation() + ".mcfunction");
                     out.getParentFile().mkdirs();
-                    Files.write(out.toPath(), function.getData().getBytes());
+//                    Files.write(out.toPath(), function.getData().getBytes());
                 }
             }
         }
