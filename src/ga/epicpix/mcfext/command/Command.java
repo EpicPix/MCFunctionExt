@@ -3,11 +3,8 @@ package ga.epicpix.mcfext.command;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.command.impl.AdvancementCommand;
-import ga.epicpix.mcfext.command.impl.BlockDataCommand;
-import ga.epicpix.mcfext.command.impl.BlockedCommands;
 import ga.epicpix.mcfext.command.impl.DefaultGamemodeCommand;
 import ga.epicpix.mcfext.command.impl.FunctionCommand;
-import ga.epicpix.mcfext.command.impl.ReplaceItemCommand;
 import ga.epicpix.mcfext.command.impl.SayCommand;
 import ga.epicpix.mcfext.exceptions.NoCompatibilityException;
 import java.util.ArrayList;
@@ -18,11 +15,8 @@ public abstract class Command {
 
     public static void init() {
         COMMANDS.add(new CommandBuilder(AdvancementCommand.class));
-        COMMANDS.add(new CommandBuilder(BlockDataCommand.class));
-        COMMANDS.add(new CommandBuilder(BlockedCommands.class));
         COMMANDS.add(new CommandBuilder(DefaultGamemodeCommand.class));
         COMMANDS.add(new CommandBuilder(FunctionCommand.class));
-        COMMANDS.add(new CommandBuilder(ReplaceItemCommand.class));
         COMMANDS.add(new CommandBuilder(SayCommand.class));
     }
 

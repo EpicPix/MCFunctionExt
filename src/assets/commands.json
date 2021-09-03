@@ -1,0 +1,46 @@
+[
+  {
+    "name": "advancement",
+    "version": {
+      "added": "1.12"
+    },
+    "syntax": {
+      "grant|revoke": {
+        "everyone": "@end",
+        "@advancement": {
+          "only": {
+            "@criterion": "@end"
+          },
+          "from|through|until": "@end"
+        }
+      }
+    }
+  },
+  {
+    "name": "defaultgamemode",
+    "version": {
+      "added": "PRE"
+    },
+    "syntax": {
+      "survival|creative|adventure|spectator": "@end"
+    }
+  },
+  {
+    "name": "function",
+    "version": {
+      "added": "1.12"
+    },
+    "syntax": {
+      "@function": "@end"
+    }
+  },
+  {
+    "name": "say",
+    "version": {
+      "added": "PRE"
+    },
+    "syntax": {
+      "@rest": "@end"
+    }
+  }
+]
