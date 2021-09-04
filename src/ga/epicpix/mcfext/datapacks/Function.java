@@ -3,6 +3,8 @@ package ga.epicpix.mcfext.datapacks;
 import ga.epicpix.mcfext.Resource;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.command.Command;
+import ga.epicpix.mcfext.command.CommandData;
+
 import java.util.ArrayList;
 
 public class Function implements Resource {
@@ -10,9 +12,9 @@ public class Function implements Resource {
     private final Namespace namespace;
     private final String name;
 
-    private final ArrayList<Command> commands = new ArrayList<>();
+    private final ArrayList<CommandData> commands = new ArrayList<>();
 
-    public Function(Namespace ns, String name, ArrayList<Command> commands) {
+    public Function(Namespace ns, String name, ArrayList<CommandData> commands) {
         namespace = ns;
         this.name = name;
         this.commands.addAll(commands);
@@ -22,7 +24,7 @@ public class Function implements Resource {
         return new ResourceLocation(namespace.getName(), name);
     }
 
-    public ArrayList<Command> getCommands() {
+    public ArrayList<CommandData> getCommands() {
         return commands;
     }
 

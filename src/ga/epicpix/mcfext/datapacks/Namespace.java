@@ -1,6 +1,7 @@
 package ga.epicpix.mcfext.datapacks;
 
-import ga.epicpix.mcfext.command.Command;
+import ga.epicpix.mcfext.command.CommandData;
+
 import java.util.ArrayList;
 
 public class Namespace {
@@ -17,7 +18,7 @@ public class Namespace {
         return name;
     }
 
-    public void addFunction(String name, ArrayList<Command> commands) {
+    public void addFunction(String name, ArrayList<CommandData> commands) {
         functions.add(new Function(this, name, commands));
     }
 

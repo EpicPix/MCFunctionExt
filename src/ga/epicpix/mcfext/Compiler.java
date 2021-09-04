@@ -1,7 +1,10 @@
 package ga.epicpix.mcfext;
 
 import ga.epicpix.mcfext.command.Command;
+import ga.epicpix.mcfext.command.CommandData;
 import ga.epicpix.mcfext.command.CommandStringIterator;
+import ga.epicpix.mcfext.command.CommandVersion;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -10,13 +13,14 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
+import static ga.epicpix.mcfext.Utils.error;
 import static ga.epicpix.mcfext.Utils.warn;
 
 public class Compiler {
 
     public static final MinecraftVersion COMPILE_TO = MinecraftVersion.MC1_17;
 
-    public static ArrayList<Command> compileFunctionFile(File file) {
+    public static ArrayList<CommandData> compileFunctionFile(File file) {
         try {
             return compileFunction(new String(Files.readAllBytes(file.toPath())));
         } catch (IOException e) {
@@ -25,19 +29,19 @@ public class Compiler {
         return null;
     }
 
-    public static ArrayList<Command> compileFunction(String data) {
+    public static ArrayList<CommandData> compileFunction(String data) {
         List<String> lines = new ArrayList<>();
-        Collections.addAll(lines, data.split("\n"));
+        Collections.addAll(lines, data.split("[\r]\n"));
         lines = compile0(lines);
 
         Variables variables = new Variables();
 
-        ArrayList<Command> output = new ArrayList<>();
+        ArrayList<CommandData> output = new ArrayList<>();
 
         Iterator<String> lineIterator = lines.iterator();
 
         while(lineIterator.hasNext()) {
-            Command cline = compileLine(new CommandStringIterator(lineIterator.next()), lineIterator, variables);
+            CommandData cline = compileLine(new CommandStringIterator(lineIterator.next()), lineIterator, variables);
             if (cline != null) {
                 output.add(cline);
             }
@@ -48,7 +52,7 @@ public class Compiler {
 
     private static List<String> compile0(List<String> lines) {
         ArrayList<String> array = new ArrayList<>(lines);
-        array.removeIf(String::isEmpty);
+        array.removeIf(a -> a.trim().isEmpty());
         array.removeIf(a -> a.startsWith("#"));
         ArrayList<String> out = new ArrayList<>();
         StringBuilder temp = new StringBuilder();
@@ -65,7 +69,7 @@ public class Compiler {
         return out;
     }
 
-    public static Command compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
+    public static CommandData compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
         String wcmd = line.nextWord();
         if(wcmd.startsWith("$")) {
             String name = wcmd.substring(1);
@@ -78,26 +82,23 @@ public class Compiler {
             }
             return null;
         }
-        String runCmd = vars.placeVariables(wcmd);
-        CommandStringIterator iter = new CommandStringIterator(runCmd + " " + line.removeNextWhitespace().rest());
-//        while(true) {
-//            runCmd = iter.nextWord();
-//            Command cmd = Command.getCommand(runCmd).create();
-//            if (cmd != null) {
-//                boolean accessible = cmd.getRemovedVersion() == null || (cmd.getAddedVersion().getId() < COMPILE_TO.getId() && cmd.getRemovedVersion().getId() > COMPILE_TO.getId());
-//                if (!accessible) {
-//                    iter = new CommandStringIterator(cmd.compatibility(runCmd, iter, COMPILE_TO, vars));
-//                }else {
-//                    return cmd.parse(runCmd, iter, vars);
-//                }
-//            } else {
-//                warn("Unknown command: " + runCmd);
-//                break;
-//            }
-//        }
-        String rest = iter.removeNextWhitespace().rest();
-//        return runCmd + (rest==null ? "" : " " + rest);
-        return null;
+        CommandStringIterator iter = new CommandStringIterator(vars.placeVariables(line.reset().removeNextWhitespace().rest()));
+
+        String cmdName = iter.nextWord();
+        Command cmd = Command.getCommand(cmdName);
+        if (cmd != null) {
+            CommandVersion version = cmd.getVersion();
+            boolean accessible = version.getRemovedVersion() == null || (version.getAddedVersion().getId() < COMPILE_TO.getId() && version.getRemovedVersion().getId() > COMPILE_TO.getId());
+            if (accessible) {
+                return cmd.parse(cmdName, iter, vars);
+            }else {
+                error("Command not available for this version: " + cmdName);
+                return null;
+            }
+        } else {
+            error("Unknown command: " + cmdName + " | " + line.reset().rest());
+            return null;
+        }
     }
 
 }

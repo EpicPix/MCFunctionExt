@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.regex.Pattern;
 
 import static ga.epicpix.mcfext.Utils.error;
+import static ga.epicpix.mcfext.Utils.info;
 
 public class Datapack {
 
@@ -79,7 +80,8 @@ public class Datapack {
                 for(Function function : functions) {
                     File out = new File(fs, function.getResourceLocation().getLocation() + ".mcfunction");
                     out.getParentFile().mkdirs();
-//                    Files.write(out.toPath(), function.getData().getBytes());
+                    System.out.println(function.getCommands());
+                    Files.write(out.toPath(), "".getBytes());
                 }
             }
         }

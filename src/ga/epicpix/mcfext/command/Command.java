@@ -1,6 +1,7 @@
 package ga.epicpix.mcfext.command;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.Variables;
@@ -9,52 +10,36 @@ import ga.epicpix.mcfext.exceptions.NoCompatibilityException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
-public abstract class Command {
+public class Command {
 
-    private static final ArrayList<CommandBuilder> COMMANDS;
+    private static final ArrayList<Command> COMMANDS = new ArrayList<>();
 
-    static {
-        COMMANDS = new Gson().fromJson(new InputStreamReader(Command.class.getClassLoader().getResourceAsStream("assets/commands.json")), new TypeToken<ArrayList<Command>>(){}.getType());
+    public static void init() {
+        COMMANDS.addAll(new Gson().fromJson(new InputStreamReader(Command.class.getClassLoader().getResourceAsStream("assets/commands.json")), new TypeToken<ArrayList<Command>>(){}.getType()));
     }
 
     private String name;
     private CommandVersion version;
+    private JsonObject syntax;
 
-    public String parse(String commandName, CommandStringIterator data, Variables vars) {
-        return commandName + " " + vars.placeVariables(data.rest());
+    public final CommandData parse(String commandName, CommandStringIterator data, Variables vars) {
+        return new CommandData(this, new Object[] {data.removeNextWhitespace().rest()});
     }
 
-    public String compatibility(String commandName, CommandStringIterator data, MinecraftVersion version, Variables vars) {
-        throw new NoCompatibilityException(commandName);
+    public String toString() {
+        return name;
     }
 
     public CommandVersion getVersion() {
         return version;
     }
 
-    public static class CommandBuilder {
-
-        private final Class<? extends Command> type;
-
-        CommandBuilder(Class<? extends Command> type) {
-            this.type = type;
-        }
-
-        public Command create() {
-            try {
-                return type.newInstance();
-            } catch (InstantiationException | IllegalAccessException e) {}
-            return null;
-        }
-
-    }
-
     public static Command getCommand(String name) {
-//        for(CommandBuilder cmd : COMMANDS) {
-//            if(cmd.getName().equalsIgnoreCase(name)) {
-//                return cmd;
-//            }
-//        }
+        for(Command cmd : COMMANDS) {
+            if(cmd.name.equals(name)) {
+                return cmd;
+            }
+        }
         return null;
     }
 
