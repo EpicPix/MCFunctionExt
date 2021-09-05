@@ -29,7 +29,7 @@ public final class Command {
     private Object syntax;
 
     private Object parseObjs(Datapack pack, DeclaredFunction fun, Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
-        debug("parseObjs() : " + syntax);
+        debug("parseObjs(" + getName() + ") : " + syntax);
         if(syntax instanceof String) {
             String syn = (String) syntax;
             if(syn.equals("@any")) {
