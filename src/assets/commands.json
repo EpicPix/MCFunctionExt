@@ -36,6 +36,17 @@
     }
   },
   {
+    "name": "gamemode",
+    "syntax": {
+      "survival|creative|adventure|spectator": {
+        "@has": {
+          "@selector": "@end"
+        },
+        "@none": "@end"
+      }
+    }
+  },
+  {
     "name": "kill",
     "syntax": {
       "@has": {
