@@ -90,6 +90,14 @@ public final class Command {
                             }else {
                                 return new CommandError("Cannot find namespace");
                             }
+                        }else if(args[0].equals("@has")) {
+                            if(data.hasNext()) {
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
+                        }else if(args[0].equals("@none")) {
+                            if(!data.hasNext()) {
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
                         }else {
                             throw new SyntaxNotHandledException("Not handled syntax selector: " + val);
                         }

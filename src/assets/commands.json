@@ -36,6 +36,15 @@
     }
   },
   {
+    "name": "kill",
+    "syntax": {
+      "@has": {
+        "@selector": "@end"
+      },
+      "@none": "@end"
+    }
+  },
+  {
     "name": "say",
     "syntax": "@any"
   }
