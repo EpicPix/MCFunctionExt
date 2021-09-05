@@ -5,9 +5,12 @@ import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.Resource;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.VersionInfo;
+import ga.epicpix.mcfext.biomes.Biome;
+import ga.epicpix.mcfext.biomes.BiomeType;
 import ga.epicpix.mcfext.command.Command;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import static ga.epicpix.mcfext.Utils.debug;
@@ -53,7 +56,37 @@ public class Advancement implements Resource {
     }
 
     public Object getCriterion(String v) {
-        debug("getCriterion(" + v + ")");
+        ArrayList<Object> crit = new ArrayList<>();
+        if(criteria instanceof String) {
+            String[] x = ((String) criteria).split(" ");
+            if(x[0].equals("@biomes")) {
+                String type = x.length != 1 ? x[1] : "all";
+                if(type.equals("all")) {
+                    crit.addAll(Biome.BIOMES);
+                }else {
+                    BiomeType t = BiomeType.valueOf(type);
+                    for(Biome b : Biome.BIOMES) {
+                        if(b.getType() == t) {
+                            crit.add(b.getResourceLocation());
+                        }
+                    }
+                }
+            }
+        }else if(criteria instanceof ArrayList) {
+            crit.addAll((ArrayList<Object>) criteria);
+        }
+        for(Object o : crit) {
+            if(o instanceof String) {
+                if(o.equals(v)) {
+                    return o;
+                }
+            }else if(o instanceof ResourceLocation) {
+                ResourceLocation loc = (ResourceLocation) o;
+                if(loc.toString().equals(v) || (loc.getNamespace().equals("minecraft") && loc.getLocation().equals(v))) {
+                    return o;
+                }
+            }
+        }
         return null;
     }
 }

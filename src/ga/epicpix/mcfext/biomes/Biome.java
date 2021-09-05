@@ -30,4 +30,7 @@ public class Biome implements Resource {
         return version;
     }
 
+    public BiomeType getType() {
+        return type;
+    }
 }
