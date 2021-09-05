@@ -1,0 +1,569 @@
+[
+  {
+    "id": "minecraft:badlands",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:badlands_plateau",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:bamboo_jungle",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:bamboo_jungle_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:basalt_deltas",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:beach",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:birch_forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:birch_forest_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:cold_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:crimson_forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_nether"
+  },
+  {
+    "id": "minecraft:dark_forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:dark_forest_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:deep_cold_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:deep_frozen_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:deep_lukewarm_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:deep_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:deep_warm_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:desert",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:desert_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:desert_lakes",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:dripstone_caves",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:end_barrens",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_end"
+  },
+  {
+    "id": "minecraft:end_highlands",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_end"
+  },
+  {
+    "id": "minecraft:end_midlands",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_end"
+  },
+  {
+    "id": "minecraft:eroded_badlands",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:flower_forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:frozen_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:frozen_river",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:giant_spruce_taiga",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:giant_spruce_taiga_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:giant_tree_taiga",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:giant_tree_taiga_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:gravelly_mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:ice_spikes",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:jungle",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:jungle_edge",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:jungle_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:lukewarm_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:lush_caves",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:modified_badlands_plateau",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:modified_gravelly_mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:modified_jungle",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:modified_jungle_edge",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:modified_wooded_badlands_plateau",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:mountain_edge",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:mushroom_field_shore",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:mushroom_fields",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:nether_wastes",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_nether"
+  },
+  {
+    "id": "minecraft:ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:plains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:river",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:savanna",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:savanna_plateau",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:shattered_savanna",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:shattered_savanna_plateau",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:small_end_islands",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_end"
+  },
+  {
+    "id": "minecraft:snowy_beach",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:snowy_mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:snowy_taiga",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:snowy_taiga_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:snowy_taiga_mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:snowy_tundra",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:soul_sand_valley",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_nether"
+  },
+  {
+    "id": "minecraft:stone_shore",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:sunflower_plains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:swamp",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:swamp_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:taiga",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:taiga_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:taiga_mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:tall_birch_forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:tall_birch_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:the_end",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_end"
+  },
+  {
+    "id": "minecraft:the_void",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_end"
+  },
+  {
+    "id": "minecraft:warm_ocean",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:warped_forest",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "the_nether"
+  },
+  {
+    "id": "minecraft:wooded_badlands_plateau",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:wooded_hills",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  },
+  {
+    "id": "minecraft:wooded_mountains",
+    "version": {
+      "added": "TODO"
+    },
+    "type": "overworld"
+  }
+]
