@@ -1,3 +1,3 @@
-weather clear
-weather rain 10000
-weather thunder 100000
+trigger test
+trigger test add 123
+trigger test set 0

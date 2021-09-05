@@ -77,6 +77,17 @@
     }
   },
   {
+    "name": "trigger",
+    "syntax": {
+      "@word": {
+        "add|set": {
+          "@int": "@end"
+        },
+        "@none": "@end"
+      }
+    }
+  },
+  {
     "name": "weather",
     "syntax": {
       "clear|rain|thunder": {
