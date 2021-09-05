@@ -100,4 +100,12 @@ public class CommandStringIterator {
         index = 0;
         return this;
     }
+
+    public int getPosition() {
+        return index;
+    }
+
+    public void setPosition(int pos) {
+        index = pos;
+    }
 }
