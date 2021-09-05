@@ -3,6 +3,8 @@ package ga.epicpix.mcfext.datapacks;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import ga.epicpix.mcfext.Compiler;
+import ga.epicpix.mcfext.command.CommandData;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -80,8 +82,11 @@ public class Datapack {
                 for(Function function : functions) {
                     File out = new File(fs, function.getResourceLocation().getLocation() + ".mcfunction");
                     out.getParentFile().mkdirs();
-                    System.out.println(function.getCommands());
-                    Files.write(out.toPath(), "".getBytes());
+                    StringBuilder funcOut = new StringBuilder();
+                    for(CommandData cmdData : function.getCommands()) {
+                        funcOut.append(cmdData.toString()).append("\n");
+                    }
+                    Files.write(out.toPath(), funcOut.toString().getBytes());
                 }
             }
         }

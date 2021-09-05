@@ -22,16 +22,15 @@ public class Compiler {
 
     public static ArrayList<CommandData> compileFunctionFile(File file) {
         try {
-            return compileFunction(new String(Files.readAllBytes(file.toPath())));
+            return compileFunction(Files.readAllLines(file.toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static ArrayList<CommandData> compileFunction(String data) {
-        List<String> lines = new ArrayList<>();
-        Collections.addAll(lines, data.split("[\r]\n"));
+    public static ArrayList<CommandData> compileFunction(List<String> data) {
+        List<String> lines = new ArrayList<>(data);
         lines = compile0(lines);
 
         Variables variables = new Variables();
@@ -90,7 +89,7 @@ public class Compiler {
             CommandVersion version = cmd.getVersion();
             boolean accessible = version.getRemovedVersion() == null || (version.getAddedVersion().getId() < COMPILE_TO.getId() && version.getRemovedVersion().getId() > COMPILE_TO.getId());
             if (accessible) {
-                return cmd.parse(cmdName, iter, vars);
+                return cmd.parse(iter, vars);
             }else {
                 error("Command not available for this version: " + cmdName);
                 return null;

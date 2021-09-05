@@ -22,12 +22,16 @@ public class Command {
     private CommandVersion version;
     private JsonObject syntax;
 
-    public final CommandData parse(String commandName, CommandStringIterator data, Variables vars) {
+    public final CommandData parse(CommandStringIterator data, Variables vars) {
         return new CommandData(this, new Object[] {data.removeNextWhitespace().rest()});
     }
 
-    public String toString() {
+    public String getName() {
         return name;
+    }
+
+    public String toString() {
+        return getName();
     }
 
     public CommandVersion getVersion() {
