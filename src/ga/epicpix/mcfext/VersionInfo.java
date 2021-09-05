@@ -1,9 +1,6 @@
-package ga.epicpix.mcfext.command;
+package ga.epicpix.mcfext;
 
-import ga.epicpix.mcfext.MCVersionDep;
-import ga.epicpix.mcfext.MinecraftVersion;
-
-public class CommandVersion implements MCVersionDep {
+public class VersionInfo implements MCVersionDep {
 
     private String added;
     private String removed;

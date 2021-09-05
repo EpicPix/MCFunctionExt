@@ -3,13 +3,11 @@ package ga.epicpix.mcfext;
 import ga.epicpix.mcfext.command.Command;
 import ga.epicpix.mcfext.command.CommandData;
 import ga.epicpix.mcfext.command.CommandStringIterator;
-import ga.epicpix.mcfext.command.CommandVersion;
 
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -86,7 +84,7 @@ public class Compiler {
         String cmdName = iter.nextWord();
         Command cmd = Command.getCommand(cmdName);
         if (cmd != null) {
-            CommandVersion version = cmd.getVersion();
+            VersionInfo version = cmd.getVersion();
             boolean accessible = version.getRemovedVersion() == null || (version.getAddedVersion().getId() < COMPILE_TO.getId() && version.getRemovedVersion().getId() > COMPILE_TO.getId());
             if (accessible) {
                 return cmd.parse(iter, vars);

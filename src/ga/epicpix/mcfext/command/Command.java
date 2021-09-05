@@ -3,9 +3,8 @@ package ga.epicpix.mcfext.command;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
-import ga.epicpix.mcfext.MinecraftVersion;
+import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.Variables;
-import ga.epicpix.mcfext.exceptions.NoCompatibilityException;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class Command {
     }
 
     private String name;
-    private CommandVersion version;
+    private VersionInfo version;
     private JsonObject syntax;
 
     public final CommandData parse(CommandStringIterator data, Variables vars) {
@@ -34,7 +33,7 @@ public class Command {
         return getName();
     }
 
-    public CommandVersion getVersion() {
+    public VersionInfo getVersion() {
         return version;
     }
 

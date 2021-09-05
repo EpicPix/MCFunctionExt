@@ -45,4 +45,9 @@ public final class ResourceLocation {
         }
         return location.matches("[0-9a-z_\\-.]*");
     }
+
+    public String getName() {
+        String[] s = getLocation().split("/");
+        return s[s.length-1];
+    }
 }
