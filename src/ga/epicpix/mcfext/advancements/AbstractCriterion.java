@@ -1,11 +1,9 @@
 package ga.epicpix.mcfext.advancements;
 
-import ga.epicpix.mcfext.MCVersionDep;
-import ga.epicpix.mcfext.MinecraftVersion;
 import ga.epicpix.mcfext.ResourceLocation;
 import java.util.ArrayList;
 
-public abstract class AbstractCriterion implements MCVersionDep {
+public abstract class AbstractCriterion {
 
     private String name;
     private ResourceLocation location;
@@ -30,6 +28,4 @@ public abstract class AbstractCriterion implements MCVersionDep {
         return str.toArray(new String[0]);
     }
 
-    public abstract MinecraftVersion getAddedVersion();
-    public abstract MinecraftVersion getRemovedVersion();
 }

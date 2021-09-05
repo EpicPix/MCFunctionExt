@@ -1,6 +1,6 @@
 package ga.epicpix.mcfext;
 
-public class VersionInfo implements MCVersionDep {
+public class VersionInfo {
 
     private String added;
     private String removed;

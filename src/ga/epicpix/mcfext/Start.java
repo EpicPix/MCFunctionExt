@@ -1,6 +1,7 @@
 package ga.epicpix.mcfext;
 
 import ga.epicpix.mcfext.advancements.Advancement;
+import ga.epicpix.mcfext.biomes.Biome;
 import ga.epicpix.mcfext.command.Command;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import java.io.File;
@@ -13,6 +14,7 @@ public class Start {
 
     public static void main(String[] args) throws Exception {
         Advancement.init();
+        Biome.init();
         Command.init();
         int ret = run(args);
         if(ret!=0) {
