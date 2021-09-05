@@ -1,9 +1,6 @@
 [
   {
     "name": "advancement",
-    "version": {
-      "added": "1.12"
-    },
     "syntax": {
       "grant|revoke": {
         "@selector": {
@@ -22,36 +19,24 @@
   },
   {
     "name": "defaultgamemode",
-    "version": {
-      "added": "PRE"
-    },
     "syntax": {
       "survival|creative|adventure|spectator": "@end"
     }
   },
   {
     "name": "difficulty",
-    "version": {
-      "added": "PRE"
-    },
     "syntax": {
       "peaceful|easy|normal|hard": "@end"
     }
   },
   {
     "name": "function",
-    "version": {
-      "added": "1.12"
-    },
     "syntax": {
       "@function": "@end"
     }
   },
   {
     "name": "say",
-    "version": {
-      "added": "PRE"
-    },
     "syntax": "@any"
   }
 ]

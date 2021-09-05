@@ -18,7 +18,6 @@ import static ga.epicpix.mcfext.Utils.info;
 public class Datapack {
 
     private String description = "Unknown";
-    private int pack_format = Compiler.COMPILE_TO.getPackFormat();
 
     private final ArrayList<Namespace> namespaces = new ArrayList<>();
 
@@ -69,7 +68,7 @@ public class Datapack {
             JsonObject meta = new JsonObject();
             JsonObject data = new JsonObject();
             data.addProperty("description", description);
-            data.addProperty("pack_format", pack_format);
+            data.addProperty("pack_format", 7); //1.17
             meta.add("data", data);
             Files.write(new File(where, "pack.mcmeta").toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(meta).getBytes());
         }

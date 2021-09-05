@@ -19,8 +19,6 @@ import static ga.epicpix.mcfext.Utils.warn;
 
 public class Compiler {
 
-    public static final MinecraftVersion COMPILE_TO = MinecraftVersion.MC1_17;
-
     public static ArrayList<CommandData> compileFunctionFile(Datapack pack, DeclaredFunction fun, File file) {
         try {
             return compileFunction(pack, fun, Files.readAllLines(file.toPath()));
@@ -84,23 +82,16 @@ public class Compiler {
         String cmdName = iter.nextWord();
         Command cmd = Command.getCommand(cmdName);
         if (cmd != null) {
-            VersionInfo version = cmd.getVersion();
-            boolean accessible = version.getRemovedVersion() == null || (version.getAddedVersion().getId() < COMPILE_TO.getId() && version.getRemovedVersion().getId() > COMPILE_TO.getId());
-            if (accessible) {
-                Object out = cmd.parse(pack, fun, iter, vars);
-                if(out==null) {
-                    error("Command output is null");
-                    return null;
-                }
-                if(out instanceof CommandError) {
-                    error(out);
-                    return null;
-                }
-                return (CommandData) out;
-            }else {
-                error("Command not available for this version: " + cmdName);
+            Object out = cmd.parse(pack, fun, iter, vars);
+            if(out==null) {
+                error("Command output is null");
                 return null;
             }
+            if(out instanceof CommandError) {
+                error(out);
+                return null;
+            }
+            return (CommandData) out;
         } else {
             error("Unknown command: " + cmdName + " | " + line.reset().rest());
             return null;

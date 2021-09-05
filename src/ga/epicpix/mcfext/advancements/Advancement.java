@@ -4,16 +4,12 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.Resource;
 import ga.epicpix.mcfext.ResourceLocation;
-import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.biomes.Biome;
 import ga.epicpix.mcfext.biomes.BiomeType;
 import ga.epicpix.mcfext.command.Command;
 
 import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
-import static ga.epicpix.mcfext.Utils.debug;
 
 public class Advancement implements Resource {
 
@@ -31,7 +27,6 @@ public class Advancement implements Resource {
     }
 
     private String id;
-    private VersionInfo version;
     private Object criteria;
 
     public static Advancement getAdvancement(ResourceLocation location) {
@@ -45,10 +40,6 @@ public class Advancement implements Resource {
 
     public ResourceLocation getResourceLocation() {
         return new ResourceLocation(id);
-    }
-
-    public VersionInfo getVersion() {
-        return version;
     }
 
     public String toString() {

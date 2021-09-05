@@ -3,10 +3,8 @@ package ga.epicpix.mcfext.command;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.ResourceLocation;
-import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.advancements.Advancement;
-import ga.epicpix.mcfext.command.selector.Selector;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
 import ga.epicpix.mcfext.datapacks.Namespace;
@@ -28,7 +26,6 @@ public final class Command {
     }
 
     private String name;
-    private VersionInfo version;
     private Object syntax;
 
     private Object parseObjs(Datapack pack, DeclaredFunction fun, Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
@@ -133,10 +130,6 @@ public final class Command {
 
     public String toString() {
         return getName();
-    }
-
-    public VersionInfo getVersion() {
-        return version;
     }
 
     public static Command getCommand(String name) {

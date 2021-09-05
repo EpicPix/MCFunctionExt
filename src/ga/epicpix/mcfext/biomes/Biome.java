@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.Resource;
 import ga.epicpix.mcfext.ResourceLocation;
-import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.command.Command;
 
 import java.io.InputStreamReader;
@@ -19,15 +18,10 @@ public class Biome implements Resource {
     }
 
     private String id;
-    private VersionInfo version;
     private BiomeType type;
 
     public ResourceLocation getResourceLocation() {
         return new ResourceLocation(id);
-    }
-
-    public VersionInfo getVersion() {
-        return version;
     }
 
     public BiomeType getType() {

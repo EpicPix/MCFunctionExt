@@ -1,33 +1,18 @@
 [
   {
     "id": "minecraft:adventure/adventuring_time",
-    "version": {
-      "added": "1.12"
-    },
     "criteria": "@biomes overworld"
   },
   {
-    "id": "minecraft:adventure/arbalistic",
-    "version": {
-      "added": "1.14"
-    }
+    "id": "minecraft:adventure/arbalistic"
   },
   {
-    "id": "minecraft:adventure/bullseye",
-    "version": {
-      "added": "1.15"
-    }
+    "id": "minecraft:adventure/bullseye"
   },
   {
-    "id": "minecraft:adventure/hero_of_the_village",
-    "version": {
-      "added": "1.14"
-    }
+    "id": "minecraft:adventure/hero_of_the_village"
   },
   {
-    "id": "minecraft:adventure/honey_block_slide",
-    "version": {
-      "added": "1.15"
-    }
+    "id": "minecraft:adventure/honey_block_slide"
   }
 ]
