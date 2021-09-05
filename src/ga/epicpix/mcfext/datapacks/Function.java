@@ -21,7 +21,7 @@ public class Function implements Resource {
     }
 
     public ResourceLocation getResourceLocation() {
-        return new ResourceLocation(namespace.getName(), name);
+        return new ResourceLocation(namespace.getName(), name, "minecraft");
     }
 
     public ArrayList<CommandData> getCommands() {
