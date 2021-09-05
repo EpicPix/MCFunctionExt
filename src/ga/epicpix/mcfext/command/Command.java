@@ -98,6 +98,9 @@ public final class Command {
                             if(!data.hasNext()) {
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
+                        }else if(args[0].equals("@word")) {
+                            vals.add(data.nextWord());
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else {
                             throw new SyntaxNotHandledException("Not handled syntax selector: " + val);
                         }
