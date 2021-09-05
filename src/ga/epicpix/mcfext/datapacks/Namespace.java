@@ -6,6 +6,8 @@ import java.util.ArrayList;
 
 public class Namespace {
 
+    public final ArrayList<DeclaredFunction> declaredFunctions = new ArrayList<>();
+
     private final ArrayList<Function> functions = new ArrayList<>();
 
     private final String name;
@@ -24,5 +26,14 @@ public class Namespace {
 
     public ArrayList<Function> getFunctions() {
         return functions;
+    }
+
+    public DeclaredFunction getDeclaredFunction(String name) {
+        for(DeclaredFunction f : declaredFunctions) {
+            if(f.getResourceLocation().getLocation().equals(name)) {
+                return f;
+            }
+        }
+        return null;
     }
 }

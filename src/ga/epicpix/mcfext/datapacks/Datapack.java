@@ -36,6 +36,7 @@ public class Datapack {
                 return null;
             }
             Collections.addAll(files, rfiles);
+
             while(files.size()!=0) {
                 File f = files.get(0);
                 if(f.isDirectory()) {
@@ -45,11 +46,14 @@ public class Datapack {
                     }
                 }else {
                     if(f.getName().endsWith(".emcfun")) {
-                        unknown.addFunction(f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], Compiler.compileFunctionFile(f));
+                        unknown.declaredFunctions.add(new DeclaredFunction(unknown, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f));
                     }
 
                 }
                 files.remove(0);
+            }
+            for(DeclaredFunction func : unknown.declaredFunctions) {
+                unknown.addFunction(func.getResourceLocation().getLocation(), Compiler.compileFunctionFile(pack, func, func.getFile()));
             }
         }
         return pack;
@@ -94,4 +98,12 @@ public class Datapack {
 
     }
 
+    public Namespace getNamespace(String namespace) {
+        for(Namespace n : namespaces) {
+            if(n.getName().equals(namespace)) {
+                return n;
+            }
+        }
+        return null;
+    }
 }

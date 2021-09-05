@@ -71,6 +71,10 @@ public class CommandStringIterator {
         return new ResourceLocation(nextWord());
     }
 
+    public ResourceLocation nextResourceLocation(String namespace) {
+        return new ResourceLocation(namespace, new ResourceLocation(nextWord()).getLocation());
+    }
+
     public Selector nextSelector() {
         return Selector.nextSelector(this);
     }

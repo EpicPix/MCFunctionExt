@@ -7,6 +7,9 @@ import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.advancements.Advancement;
 import ga.epicpix.mcfext.command.selector.Selector;
+import ga.epicpix.mcfext.datapacks.Datapack;
+import ga.epicpix.mcfext.datapacks.DeclaredFunction;
+import ga.epicpix.mcfext.datapacks.Namespace;
 import ga.epicpix.mcfext.exceptions.SyntaxNotHandledException;
 
 import java.io.InputStreamReader;
@@ -28,7 +31,7 @@ public final class Command {
     private VersionInfo version;
     private Object syntax;
 
-    private Object parseObjs(Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
+    private Object parseObjs(Datapack pack, DeclaredFunction fun, Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
         debug("parseObjs() : " + syntax);
         if(syntax instanceof String) {
             String syn = (String) syntax;
@@ -49,13 +52,13 @@ public final class Command {
                         String[] args = val.split(" ");
                         if(args[0].equals("@selector")) {
                             vals.add(data.nextSelector());
-                            return parseObjs(entry.getValue(), data, vars, vals);
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@advancement")) {
                             ResourceLocation radv = data.nextResourceLocation();
                             Advancement adv = Advancement.getAdvancement(radv);
                             if(adv != null) {
                                 vals.add(adv);
-                                return parseObjs(entry.getValue(), data, vars, vals);
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
                         }else if(args[0].equals("@criterion")) {
                             Advancement adv = null;
@@ -71,10 +74,24 @@ public final class Command {
                                 Object crt = adv.getCriterion(v);
                                 if(crt != null) {
                                     vals.add(crt);
-                                    return parseObjs(entry.getValue(), data, vars, vals);
+                                    return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                                 }else {
                                     return new CommandError("Advancement doesn't contain that criterion");
                                 }
+                            }
+                        }else if(args[0].equals("@function")) {
+                            ResourceLocation loc = data.nextResourceLocation(fun.getResourceLocation().getNamespace());
+                            Namespace ns = pack.getNamespace(loc.getNamespace());
+                            if(ns != null) {
+                                DeclaredFunction f = ns.getDeclaredFunction(loc.getLocation());
+                                if(f != null) {
+                                    vals.add(f);
+                                    return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                                }else {
+                                    return new CommandError("Cannot find function");
+                                }
+                            }else {
+                                return new CommandError("Cannot find namespace");
                             }
                         }else {
                             throw new SyntaxNotHandledException("Not handled syntax selector: " + val);
@@ -83,7 +100,7 @@ public final class Command {
                         String v = data.nextWord();
                         if(val.equals(v)) {
                             vals.add(v);
-                            return parseObjs(entry.getValue(), data, vars, vals);
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }
                     }
                     data.setPosition(pos);
@@ -95,8 +112,8 @@ public final class Command {
         }
     }
 
-    public Object parse(CommandStringIterator data, Variables vars) {
-        Object objs = parseObjs(syntax, data, vars, new ArrayList<>());
+    public Object parse(Datapack pack, DeclaredFunction fun, CommandStringIterator data, Variables vars) {
+        Object objs = parseObjs(pack, fun, syntax, data, vars, new ArrayList<>());
 
         if(objs==null) return null;
         if(objs instanceof CommandError) return objs;

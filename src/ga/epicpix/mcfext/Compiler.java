@@ -4,6 +4,8 @@ import ga.epicpix.mcfext.command.Command;
 import ga.epicpix.mcfext.command.CommandData;
 import ga.epicpix.mcfext.command.CommandError;
 import ga.epicpix.mcfext.command.CommandStringIterator;
+import ga.epicpix.mcfext.datapacks.Datapack;
+import ga.epicpix.mcfext.datapacks.DeclaredFunction;
 
 import java.io.File;
 import java.io.IOException;
@@ -19,16 +21,16 @@ public class Compiler {
 
     public static final MinecraftVersion COMPILE_TO = MinecraftVersion.MC1_17;
 
-    public static ArrayList<CommandData> compileFunctionFile(File file) {
+    public static ArrayList<CommandData> compileFunctionFile(Datapack pack, DeclaredFunction fun, File file) {
         try {
-            return compileFunction(Files.readAllLines(file.toPath()));
+            return compileFunction(pack, fun, Files.readAllLines(file.toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    public static ArrayList<CommandData> compileFunction(List<String> data) {
+    public static ArrayList<CommandData> compileFunction(Datapack pack, DeclaredFunction fun, List<String> data) {
         List<String> lines = compile0(data);
 
         Variables variables = new Variables();
@@ -36,7 +38,7 @@ public class Compiler {
         Iterator<String> lineIterator = lines.iterator();
 
         while(lineIterator.hasNext()) {
-            CommandData cline = compileLine(new CommandStringIterator(lineIterator.next()), lineIterator, variables);
+            CommandData cline = compileLine(pack, fun, new CommandStringIterator(lineIterator.next()), lineIterator, variables);
             if (cline != null) {
                 output.add(cline);
             }
@@ -64,7 +66,7 @@ public class Compiler {
         return out;
     }
 
-    public static CommandData compileLine(CommandStringIterator line, Iterator<String> lines, Variables vars) {
+    public static CommandData compileLine(Datapack pack, DeclaredFunction fun, CommandStringIterator line, Iterator<String> lines, Variables vars) {
         String wcmd = line.nextWord();
         if(wcmd.startsWith("$")) {
             String name = wcmd.substring(1);
@@ -85,7 +87,7 @@ public class Compiler {
             VersionInfo version = cmd.getVersion();
             boolean accessible = version.getRemovedVersion() == null || (version.getAddedVersion().getId() < COMPILE_TO.getId() && version.getRemovedVersion().getId() > COMPILE_TO.getId());
             if (accessible) {
-                Object out = cmd.parse(iter, vars);
+                Object out = cmd.parse(pack, fun, iter, vars);
                 if(out==null) {
                     error("Command output is null");
                     return null;
