@@ -25,7 +25,7 @@ public final class Command {
         COMMANDS.addAll(new Gson().fromJson(new InputStreamReader(Command.class.getClassLoader().getResourceAsStream("assets/commands.json")), new TypeToken<ArrayList<Command>>(){}.getType()));
     }
 
-    private String name;
+    private Object name;
     private Object syntax;
 
     private Object parseObjs(Datapack pack, DeclaredFunction fun, Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
@@ -136,7 +136,13 @@ public final class Command {
     }
 
     public String getName() {
-        return name;
+        if(name instanceof String) {
+            return name.toString();
+        }else if(name instanceof ArrayList) {
+            return ((ArrayList<String>) name).get(0);
+        }else {
+            return null;
+        }
     }
 
     public String toString() {
@@ -145,8 +151,16 @@ public final class Command {
 
     public static Command getCommand(String name) {
         for(Command cmd : COMMANDS) {
-            if(cmd.name.equals(name)) {
-                return cmd;
+            if(cmd.name instanceof String) {
+                if (cmd.name.equals(name)) {
+                    return cmd;
+                }
+            }else if(cmd.name instanceof ArrayList) {
+                for(String alias : (ArrayList<String>) cmd.name) {
+                    if(alias.equals(name)) {
+                        return cmd;
+                    }
+                }
             }
         }
         return null;

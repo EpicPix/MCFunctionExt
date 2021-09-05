@@ -1,2 +1,3 @@
-kill
-kill @a
+msg @s myself
+tell @s alias
+w @s alias2
