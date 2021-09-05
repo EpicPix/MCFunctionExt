@@ -30,6 +30,15 @@
     }
   },
   {
+    "name": "difficulty",
+    "version": {
+      "added": "PRE"
+    },
+    "syntax": {
+      "peaceful|easy|normal|hard": "@end"
+    }
+  },
+  {
     "name": "function",
     "version": {
       "added": "1.12"
