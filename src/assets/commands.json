@@ -39,8 +39,6 @@
     "version": {
       "added": "PRE"
     },
-    "syntax": {
-      "@rest": "@end"
-    }
+    "syntax": "@any"
   }
 ]

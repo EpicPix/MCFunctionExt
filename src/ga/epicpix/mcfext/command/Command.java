@@ -1,15 +1,15 @@
 package ga.epicpix.mcfext.command;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.Variables;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Map;
 
-public class Command {
+public final class Command {
 
     private static final ArrayList<Command> COMMANDS = new ArrayList<>();
 
@@ -19,10 +19,29 @@ public class Command {
 
     private String name;
     private VersionInfo version;
-    private JsonObject syntax;
+    private Object syntax;
 
-    public final CommandData parse(CommandStringIterator data, Variables vars) {
-        return new CommandData(this, new Object[] {data.removeNextWhitespace().rest()});
+    private Object parseObjs(Object syntax, CommandStringIterator data, Variables vars) {
+        if(syntax instanceof String) {
+            String syn = (String) syntax;
+            if(syn.equals("@any")) {
+                return data.restW();
+            }
+        }
+        return new CommandError("Not handled syntax");
+    }
+
+    public Object parse(CommandStringIterator data, Variables vars) {
+        Object objs = parseObjs(syntax, data, vars);
+
+        if(objs==null) return null;
+        if(objs instanceof CommandError) return objs;
+
+        if(objs instanceof Object[]) {
+            return new CommandData(this, (Object[]) objs);
+        }else {
+            return new CommandData(this, new Object[] {objs});
+        }
     }
 
     public String getName() {

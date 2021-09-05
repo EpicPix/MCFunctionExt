@@ -2,6 +2,7 @@ package ga.epicpix.mcfext;
 
 import ga.epicpix.mcfext.command.Command;
 import ga.epicpix.mcfext.command.CommandData;
+import ga.epicpix.mcfext.command.CommandError;
 import ga.epicpix.mcfext.command.CommandStringIterator;
 
 import java.io.File;
@@ -28,13 +29,10 @@ public class Compiler {
     }
 
     public static ArrayList<CommandData> compileFunction(List<String> data) {
-        List<String> lines = new ArrayList<>(data);
-        lines = compile0(lines);
+        List<String> lines = compile0(data);
 
         Variables variables = new Variables();
-
         ArrayList<CommandData> output = new ArrayList<>();
-
         Iterator<String> lineIterator = lines.iterator();
 
         while(lineIterator.hasNext()) {
@@ -49,15 +47,15 @@ public class Compiler {
 
     private static List<String> compile0(List<String> lines) {
         ArrayList<String> array = new ArrayList<>(lines);
-        array.removeIf(a -> a.trim().isEmpty());
-        array.removeIf(a -> a.startsWith("#"));
+        array.removeIf(a -> a.trim().isEmpty() || a.trim().startsWith("#"));
         ArrayList<String> out = new ArrayList<>();
         StringBuilder temp = new StringBuilder();
         for(String str : array) {
+            str = str.trim();
             if(str.endsWith("\\")) {
                 temp.append(str.substring(0, str.length() - 1).trim());
             }else if(temp.length() > 0) {
-                out.add(temp + str.trim());
+                out.add(temp + str);
                 temp = new StringBuilder();
             }else {
                 out.add(str);
@@ -87,7 +85,16 @@ public class Compiler {
             VersionInfo version = cmd.getVersion();
             boolean accessible = version.getRemovedVersion() == null || (version.getAddedVersion().getId() < COMPILE_TO.getId() && version.getRemovedVersion().getId() > COMPILE_TO.getId());
             if (accessible) {
-                return cmd.parse(iter, vars);
+                Object out = cmd.parse(iter, vars);
+                if(out==null) {
+                    error("Command output is null");
+                    return null;
+                }
+                if(out instanceof CommandError) {
+                    error(((CommandError) out).getMessage());
+                    return null;
+                }
+                return (CommandData) out;
             }else {
                 error("Command not available for this version: " + cmdName);
                 return null;

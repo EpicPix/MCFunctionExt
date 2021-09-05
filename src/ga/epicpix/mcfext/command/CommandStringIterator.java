@@ -92,6 +92,10 @@ public class CommandStringIterator {
         return s;
     }
 
+    public String restW() {
+        return removeNextWhitespace().rest();
+    }
+
     public CommandStringIterator reset() {
         index = 0;
         return this;
