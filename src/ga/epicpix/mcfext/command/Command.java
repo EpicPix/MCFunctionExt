@@ -57,6 +57,12 @@ public final class Command {
                                 vals.add(adv);
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
+                        }else if(args[0].equals("@boolean")) {
+                            String w = data.nextWord();
+                            if(w.equals("false") || w.equals("true")) {
+                                vals.add(w.equals("true"));
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
                         }else if(args[0].equals("@criterion")) {
                             Advancement adv = null;
                             for(Object obj : vals) {

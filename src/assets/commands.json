@@ -18,6 +18,41 @@
     }
   },
   {
+    "name": "bossbar",
+    "syntax": {
+      "add|remove": {
+        "@word": "@any"
+      },
+      "get": {
+        "max|players|value|visible": "@end"
+      },
+      "list": "@end",
+      "set": {
+        "@word": {
+          "color": {
+            "blue|green|pink|purple|red|white|yellow": "@end"
+          },
+          "max": {
+            "@int": "@end"
+          },
+          "name": "@any",
+          "players": {
+            "@selector": "@end"
+          },
+          "style": {
+            "notched_6|notched_10|notched_12|notched_20|progress": "@end"
+          },
+          "@value": {
+            "@int": "@end"
+          },
+          "@visible": {
+            "@boolean": "@end"
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "defaultgamemode",
     "syntax": {
       "survival|creative|adventure|spectator": "@end"
