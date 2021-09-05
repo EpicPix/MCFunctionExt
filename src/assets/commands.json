@@ -6,12 +6,14 @@
     },
     "syntax": {
       "grant|revoke": {
-        "everyone": "@end",
-        "@advancement": {
-          "only": {
-            "@criterion": "@end"
-          },
-          "from|through|until": "@end"
+        "@selector": {
+          "everyone": "@end",
+          "@advancement": {
+            "only": {
+              "@criterion": "@end"
+            },
+            "from|through|until": "@end"
+          }
         }
       }
     }
