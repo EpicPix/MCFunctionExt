@@ -91,7 +91,7 @@ public class Compiler {
                     return null;
                 }
                 if(out instanceof CommandError) {
-                    error(((CommandError) out).getMessage());
+                    error(out);
                     return null;
                 }
                 return (CommandData) out;

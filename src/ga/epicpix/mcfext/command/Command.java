@@ -2,8 +2,11 @@ package ga.epicpix.mcfext.command;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.VersionInfo;
 import ga.epicpix.mcfext.Variables;
+import ga.epicpix.mcfext.advancements.Advancement;
+import ga.epicpix.mcfext.command.selector.Selector;
 import ga.epicpix.mcfext.exceptions.SyntaxNotHandledException;
 
 import java.io.InputStreamReader;
@@ -43,17 +46,50 @@ public final class Command {
                 for(String val : values) {
                     int pos = data.getPosition();
                     if(val.startsWith("@")) {
+                        String[] args = val.split(" ");
+                        if(args[0].equals("@selector")) {
+                            vals.add(data.nextSelector());
+                            return parseObjs(entry.getValue(), data, vars, vals);
+                        }else if(args[0].equals("@advancement")) {
+                            ResourceLocation radv = data.nextResourceLocation();
+                            Advancement adv = Advancement.getAdvancement(radv);
+                            if(adv != null) {
+                                vals.add(adv);
+                                return parseObjs(entry.getValue(), data, vars, vals);
+                            }
+                        }else if(args[0].equals("@criterion")) {
+                            Advancement adv = null;
+                            for(Object obj : vals) {
+                                if(obj instanceof Advancement) {
+                                    adv = (Advancement) obj;
+                                }
+                            }
+                            if(adv == null) {
+                                return new CommandError("Cannot get advancement");
+                            }else {
+                                String v = data.nextWord();
+                                Object crt = adv.getCriterion(v);
+                                if(crt != null) {
+                                    vals.add(crt);
+                                    return parseObjs(entry.getValue(), data, vars, vals);
+                                }else {
+                                    return new CommandError("Advancement doesn't contain that criterion");
+                                }
+                            }
+                        }else {
+                            throw new SyntaxNotHandledException("Not handled syntax selector: " + val);
+                        }
                     }else {
                         String v = data.nextWord();
                         if(val.equals(v)) {
                             vals.add(v);
-                            return parseObjs(entry.getValue(), data, vars, new ArrayList<>(vals));
+                            return parseObjs(entry.getValue(), data, vars, vals);
                         }
                     }
                     data.setPosition(pos);
                 }
             }
-            return new CommandError("Could not parse command");
+            return new CommandError("Could not parse '" + getName() + "' command");
         }else {
             throw new SyntaxNotHandledException("Not handled syntax, unknown syntax type " + syntax.getClass() + "  /  " + syntax);
         }

@@ -8,11 +8,13 @@
       "grant|revoke": {
         "@selector": {
           "everyone": "@end",
-          "@advancement": {
-            "only": {
+          "only": {
+            "@advancement": {
               "@criterion": "@end"
-            },
-            "from|through|until": "@end"
+            }
+          },
+          "from|through|until": {
+            "@advancement": "@end"
           }
         }
       }

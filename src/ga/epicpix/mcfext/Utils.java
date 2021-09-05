@@ -1,5 +1,7 @@
 package ga.epicpix.mcfext;
 
+import ga.epicpix.mcfext.command.CommandError;
+
 public final class Utils {
 
     private static final boolean DEBUG = Boolean.parseBoolean(System.getProperty("DEBUG"));
@@ -21,6 +23,10 @@ public final class Utils {
 
     public static void error(Object msg) {
         System.err.println("[ERROR] " + msg);
+        if(msg instanceof CommandError) {
+            if (DEBUG)
+                ((CommandError) msg).printStackTrace();
+        }
         errorCount++;
     }
 

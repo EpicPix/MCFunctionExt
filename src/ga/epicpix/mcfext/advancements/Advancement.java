@@ -10,6 +10,8 @@ import ga.epicpix.mcfext.command.Command;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 
+import static ga.epicpix.mcfext.Utils.debug;
+
 public class Advancement implements Resource {
 
     public static final ArrayList<Advancement> ADVANCEMENTS = new ArrayList<>();
@@ -46,4 +48,12 @@ public class Advancement implements Resource {
         return version;
     }
 
+    public String toString() {
+        return getResourceLocation().toString();
+    }
+
+    public Object getCriterion(String v) {
+        debug("getCriterion(" + v + ")");
+        return null;
+    }
 }
