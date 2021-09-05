@@ -75,5 +75,16 @@
         "list": "@end"
       }
     }
+  },
+  {
+    "name": "weather",
+    "syntax": {
+      "clear|rain|thunder": {
+        "@has": {
+          "@int": "@end"
+        },
+        "@none": "@end"
+      }
+    }
   }
 ]

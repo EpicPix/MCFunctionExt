@@ -94,6 +94,11 @@ public final class Command {
                             if(data.hasNext()) {
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
+                        }else if(args[0].equals("@int")) {
+                            try {
+                                vals.add(Integer.parseInt(data.nextWord()));
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }catch(NumberFormatException ignored) {}
                         }else if(args[0].equals("@none")) {
                             if(!data.hasNext()) {
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
