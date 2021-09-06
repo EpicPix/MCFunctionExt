@@ -14,6 +14,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.UUID;
 
 import static ga.epicpix.mcfext.Utils.debug;
 
@@ -109,6 +110,9 @@ public final class Command {
                             if(!data.hasNext()) {
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
+                        }else if(args[0].equals("@uuid")) {
+                            vals.add(UUID.fromString(data.nextWord()));
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@word")) {
                             vals.add(data.nextWord());
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
