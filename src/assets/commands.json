@@ -111,6 +111,10 @@
     }
   },
   {
+    "name": "me",
+    "syntax": "@any"
+  },
+  {
     "name": ["msg", "tell", "w"],
     "syntax": {
       "@selector": "@any"
