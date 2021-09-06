@@ -67,7 +67,7 @@
   {
     "name": "execute",
     "syntax": {
-      "as": {
+      "as|at": {
         "@selector": "@command execute"
       },
       "facing": {
