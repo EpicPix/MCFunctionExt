@@ -32,6 +32,7 @@ public class Datapack {
                 error("Unsupported version");
                 return null;
             }
+            pack.description = metaData.getAsJsonObject("data").get("description").getAsString();
             File data = new File(root, "data");
             if(!data.exists()) {
                 error("Data folder doesn't exist");
