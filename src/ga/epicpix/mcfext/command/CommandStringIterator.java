@@ -2,6 +2,9 @@ package ga.epicpix.mcfext.command;
 
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.command.selector.Selector;
+import ga.epicpix.mcfext.pos.Position;
+import ga.epicpix.mcfext.pos.Vec2d;
+import ga.epicpix.mcfext.pos.Vec3d;
 
 import static ga.epicpix.mcfext.Utils.error;
 
@@ -77,6 +80,18 @@ public class CommandStringIterator {
 
     public Selector nextSelector() {
         return Selector.nextSelector(this);
+    }
+
+    public Position nextPosition() {
+        return Position.nextPosition(this);
+    }
+
+    public Vec2d nextVec2d() {
+        return Vec2d.nextVec2d(this);
+    }
+
+    public Vec3d nextVec3d() {
+        return Vec3d.nextVec3d(this);
     }
 
     public CommandStringIterator removeNextWhitespace() {
