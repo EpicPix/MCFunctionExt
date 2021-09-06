@@ -125,6 +125,10 @@
     "syntax": "@any"
   },
   {
+    "name": "seed",
+    "syntax": "@end"
+  },
+  {
     "name": "tag",
     "syntax": {
       "@selector": {
