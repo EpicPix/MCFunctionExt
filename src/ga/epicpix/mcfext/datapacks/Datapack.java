@@ -1,5 +1,6 @@
 package ga.epicpix.mcfext.datapacks;
 
+import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 import ga.epicpix.mcfext.Compiler;
@@ -18,6 +19,7 @@ import static ga.epicpix.mcfext.Utils.info;
 public class Datapack {
 
     private String description = "Unknown";
+    public static final int PACK_FORMAT = 7; // 1.17
 
     private final ArrayList<Namespace> namespaces = new ArrayList<>();
 
@@ -25,7 +27,52 @@ public class Datapack {
         Datapack pack = new Datapack();
         boolean hasMeta = new File(root, "pack.mcmeta").exists();
         if(hasMeta) {
-            // TODO
+            JsonObject metaData = new Gson().fromJson(new String(Files.readAllBytes(new File(root, "pack.mcmeta").toPath())), JsonObject.class);
+            if(metaData.getAsJsonObject("data").get("pack_format").getAsInt() != PACK_FORMAT) {
+                error("Unsupported version");
+                return null;
+            }
+            File data = new File(root, "data");
+            if(!data.exists()) {
+                error("Data folder doesn't exist");
+                return null;
+            }
+            File[] dataContents = data.listFiles(File::isDirectory);
+            if(dataContents == null) {
+                error("Could not read data folder");
+                return null;
+            }
+            for(File fileNamespace : dataContents) {
+                Namespace ns = new Namespace(fileNamespace.getName());
+                pack.namespaces.add(ns);
+                ArrayList<File> files = new ArrayList<>();
+                File[] rfiles = fileNamespace.listFiles();
+                if(rfiles == null) {
+                    return null;
+                }
+                Collections.addAll(files, rfiles);
+
+                while(files.size()!=0) {
+                    File f = files.get(0);
+                    if(f.isDirectory()) {
+                        File[] containing = f.listFiles();
+                        if(containing!=null) {
+                            Collections.addAll(files, containing);
+                        }
+                    }else {
+                        if(f.getName().endsWith(".emcfun")) {
+                            ns.declaredFunctions.add(new DeclaredFunction(ns, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f));
+                        }
+
+                    }
+                    files.remove(0);
+                }
+            }
+            for(Namespace ns : pack.namespaces) {
+                for (DeclaredFunction func : ns.declaredFunctions) {
+                    ns.addFunction(func.getResourceLocation().getLocation(), Compiler.compileFunctionFile(pack, func, func.getFile()));
+                }
+            }
         }else {
             Namespace unknown = new Namespace("unknown");
             pack.namespaces.add(unknown);
@@ -68,7 +115,7 @@ public class Datapack {
             JsonObject meta = new JsonObject();
             JsonObject data = new JsonObject();
             data.addProperty("description", description);
-            data.addProperty("pack_format", 7); //1.17
+            data.addProperty("pack_format", PACK_FORMAT);
             meta.add("data", data);
             Files.write(new File(where, "pack.mcmeta").toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(meta).getBytes());
         }
