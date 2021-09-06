@@ -81,6 +81,12 @@
         },
         "@vec3d": "@command execute"
       },
+      "positioned": {
+        "as": {
+          "@selector": "@command execute"
+        },
+        "@vec3d": "@command execute"
+      },
       "run": "@command"
     }
   },
