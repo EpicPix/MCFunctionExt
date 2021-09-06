@@ -67,6 +67,14 @@
   {
     "name": "execute",
     "syntax": {
+      "facing": {
+        "entity": {
+          "@selector": {
+            "eyes|feet": "@command execute"
+          }
+        },
+        "@vec3d": "@command execute"
+      },
       "run": "@command"
     }
   },

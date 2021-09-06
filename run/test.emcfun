@@ -1,1 +1,1 @@
-execute run execute run execute run execute run execute run execute run say a
+execute facing ~ ~ ~ facing entity @s feet run say a

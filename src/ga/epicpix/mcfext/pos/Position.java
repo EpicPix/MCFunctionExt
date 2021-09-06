@@ -19,6 +19,7 @@ public class Position {
             pos.relative = true;
             w = w.substring(1);
         }
+        if(w.isEmpty()) return pos;
         try {
             double d = Double.parseDouble(w);
             if ((int) d == d) {
@@ -42,7 +43,8 @@ public class Position {
         StringBuilder builder = new StringBuilder();
         if(relative) builder.append("~");
         if(local) builder.append("^");
-        builder.append(location);
+        if(location != 0)
+            builder.append(location);
         return builder.toString();
     }
 }
