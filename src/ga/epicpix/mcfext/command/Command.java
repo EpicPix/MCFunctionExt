@@ -52,10 +52,7 @@ public final class Command {
                     int pos = data.getPosition();
                     if(val.startsWith("@")) {
                         String[] args = val.split(" ");
-                        if(args[0].equals("@selector")) {
-                            vals.add(data.nextSelector());
-                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
-                        }else if(args[0].equals("@advancement")) {
+                        if(args[0].equals("@advancement")) {
                             ResourceLocation radv = data.nextResourceLocation();
                             Advancement adv = Advancement.getAdvancement(radv);
                             if(adv != null) {
@@ -119,6 +116,12 @@ public final class Command {
                             if(!data.hasNext()) {
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
+                        }else if(args[0].equals("@resource")) {
+                            vals.add(data.nextResourceLocation());
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                        }else if(args[0].equals("@selector")) {
+                            vals.add(data.nextSelector());
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@uuid")) {
                             try {
                                 vals.add(UUID.fromString(data.nextWord()));
