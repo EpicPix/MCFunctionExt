@@ -67,6 +67,9 @@
   {
     "name": "execute",
     "syntax": {
+      "as": {
+        "@selector": "@command execute"
+      },
       "facing": {
         "entity": {
           "@selector": {
