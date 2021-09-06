@@ -17,6 +17,7 @@ import java.util.Map.Entry;
 import java.util.UUID;
 
 import static ga.epicpix.mcfext.Utils.debug;
+import static ga.epicpix.mcfext.Utils.warn;
 
 public final class Command {
 
@@ -28,6 +29,7 @@ public final class Command {
 
     private Object name;
     private Object syntax;
+    private String warning;
 
     private Object parseObjs(Datapack pack, DeclaredFunction fun, Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
         debug("parseObjs(" + getName() + ") : " + syntax);
@@ -136,6 +138,9 @@ public final class Command {
     }
 
     public Object parse(Datapack pack, DeclaredFunction fun, CommandStringIterator data, Variables vars) {
+        if(warning!=null) {
+            warn("[" + name + "] " + warning);
+        }
         Object objs = parseObjs(pack, fun, syntax, data, vars, new ArrayList<>());
 
         if(objs==null) return null;
