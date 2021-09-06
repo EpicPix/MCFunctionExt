@@ -67,6 +67,9 @@
   {
     "name": "execute",
     "syntax": {
+      "anchored": {
+        "eyes|feet": "@command execute"
+      },
       "as|at": {
         "@selector": "@command execute"
       },
