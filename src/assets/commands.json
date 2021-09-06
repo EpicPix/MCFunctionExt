@@ -65,6 +65,26 @@
     }
   },
   {
+    "name": ["experience", "xp"],
+    "syntax": {
+      "add|set": {
+        "@selector": {
+          "@int": {
+            "@has": {
+              "levels|points": "@end"
+            },
+            "@none": "@end"
+          }
+        }
+      },
+      "query": {
+        "@selector": {
+          "levels|points": "@end"
+        }
+      }
+    }
+  },
+  {
     "name": "function",
     "syntax": {
       "@function": "@end"
