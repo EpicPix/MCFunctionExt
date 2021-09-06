@@ -87,6 +87,11 @@ public final class Command {
                                     return new CommandError("Advancement doesn't contain that criterion");
                                 }
                             }
+                        }else if(args[0].equals("@double")) {
+                            try {
+                                vals.add(Double.parseDouble(data.nextWord()));
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }catch(NumberFormatException ignored) {}
                         }else if(args[0].equals("@function")) {
                             ResourceLocation loc = data.nextResourceLocation(fun.getResourceLocation().getNamespace());
                             Namespace ns = pack.getNamespace(loc.getNamespace());
