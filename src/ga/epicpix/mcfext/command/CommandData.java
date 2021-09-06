@@ -23,6 +23,10 @@ public class CommandData {
         return errorMessage;
     }
 
+    public Object[] getData() {
+        return data;
+    }
+
     public String toString() {
         StringBuilder builder = new StringBuilder();
         builder.append(command.toString());

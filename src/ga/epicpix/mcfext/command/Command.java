@@ -13,13 +13,10 @@ import ga.epicpix.mcfext.pos.Vec2d;
 import ga.epicpix.mcfext.pos.Vec3d;
 
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.UUID;
 
-import static ga.epicpix.mcfext.Utils.debug;
-import static ga.epicpix.mcfext.Utils.warn;
+import static ga.epicpix.mcfext.Utils.*;
 
 public final class Command {
 
@@ -37,10 +34,29 @@ public final class Command {
         debug("parseObjs(" + getName() + ") : " + syntax);
         if(syntax instanceof String) {
             String syn = (String) syntax;
-            if(syn.equals("@any")) {
+            String[] sargs = syn.split(" ");
+            String sarg0 = sargs[0];
+            String sarg1 = sargs.length > 1 ? sargs[1] : null;
+            if(sarg0.equals("@any")) {
                 vals.add(data.restW());
                 return vals;
-            }else if(syn.equals("@end")) {
+            }else if(sarg0.equals("@command")) {
+                Command cmd;
+                if(sarg1 != null) {
+                    cmd = getCommand(sarg1);
+                }else {
+                    String cmdname = data.nextWord();
+                    vals.add(cmdname);
+                    cmd = getCommand(cmdname);
+                }
+                if(cmd == null) return new CommandError("Unknown command");
+                Object parsed = cmd.parse(pack, fun, data, vars);
+                if(parsed == null || parsed instanceof CommandError) {
+                    return parsed;
+                }
+                vals.addAll(Arrays.asList(((CommandData) parsed).getData()));
+                return vals;
+            }else if(sarg0.equals("@end")) {
                 return vals;
             }
             throw new SyntaxNotHandledException("Not handled syntax: " + syn);

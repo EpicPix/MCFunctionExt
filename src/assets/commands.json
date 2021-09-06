@@ -65,6 +65,12 @@
     }
   },
   {
+    "name": "execute",
+    "syntax": {
+      "run": "@command"
+    }
+  },
+  {
     "name": ["experience", "xp"],
     "syntax": {
       "add|set": {
