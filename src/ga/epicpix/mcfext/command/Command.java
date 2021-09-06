@@ -9,6 +9,8 @@ import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
 import ga.epicpix.mcfext.datapacks.Namespace;
 import ga.epicpix.mcfext.exceptions.SyntaxNotHandledException;
+import ga.epicpix.mcfext.pos.Vec2d;
+import ga.epicpix.mcfext.pos.Vec3d;
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -113,8 +115,22 @@ public final class Command {
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }
                         }else if(args[0].equals("@uuid")) {
-                            vals.add(UUID.fromString(data.nextWord()));
-                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            try {
+                                vals.add(UUID.fromString(data.nextWord()));
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            } catch(IllegalArgumentException ignored) {}
+                        }else if(args[0].equals("@vec2d")) {
+                            Vec2d vec2d = data.nextVec2d();
+                            if(vec2d != null) {
+                                vals.add(vec2d);
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
+                        }else if(args[0].equals("@vec3d")) {
+                            Vec3d vec3d = data.nextVec3d();
+                            if(vec3d != null) {
+                                vals.add(vec3d);
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
                         }else if(args[0].equals("@word")) {
                             vals.add(data.nextWord());
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);

@@ -10,6 +10,7 @@ public class Position {
 
     public static Position nextPosition(CommandStringIterator iter) {
         String w = iter.nextWord();
+        if(w == null) return null;
         Position pos = new Position();
         if(w.startsWith("^")) {
             pos.local = true;
@@ -18,14 +19,18 @@ public class Position {
             pos.relative = true;
             w = w.substring(1);
         }
-        double d = Double.parseDouble(w);
-        if((int) d == d) {
-            boolean addp5 = !w.endsWith(".0");
-            if(addp5) {
-                d += 0.5;
+        try {
+            double d = Double.parseDouble(w);
+            if ((int) d == d) {
+                boolean addp5 = !w.endsWith(".0");
+                if (addp5) {
+                    d += 0.5;
+                }
             }
+            pos.location = d;
+        }catch(NumberFormatException e) {
+            return null;
         }
-        pos.location = d;
         return pos;
     }
 

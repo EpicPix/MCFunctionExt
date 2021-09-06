@@ -13,8 +13,11 @@ public class Vec3d {
     public static Vec3d nextVec3d(CommandStringIterator iter) {
         Vec3d vec = new Vec3d();
         vec.x = iter.nextPosition();
+        if(vec.x == null) return null;
         vec.y = iter.nextPosition();
+        if(vec.y == null) return null;
         vec.z = iter.nextPosition();
+        if(vec.z == null) return null;
         if(vec.x.isLocal() != vec.y.isLocal() || vec.y.isLocal() != vec.z.isLocal()) {
             error("Mixing local and non local positions");
             return null;
