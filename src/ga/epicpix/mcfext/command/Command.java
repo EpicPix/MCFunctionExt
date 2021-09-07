@@ -58,6 +58,12 @@ public final class Command {
                 return vals;
             }else if(sarg0.equals("@end")) {
                 return vals;
+            }else if(sarg0.equals("@error")) {
+                if(sarg1 != null) {
+                    return new CommandError(syn.split(" ", 2)[1]);
+                }else {
+                    return new CommandError("Undefined error");
+                }
             }
             throw new SyntaxNotHandledException("Not handled syntax: " + syn);
         }else if(syntax instanceof Map) {
@@ -105,6 +111,8 @@ public final class Command {
                                 vals.add(Double.parseDouble(data.nextWord()));
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }catch(NumberFormatException ignored) {}
+                        }else if(args[0].equals("@else")) {
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@function")) {
                             ResourceLocation loc = data.nextResourceLocation(fun.getResourceLocation().getNamespace());
                             Namespace ns = pack.getNamespace(loc.getNamespace());

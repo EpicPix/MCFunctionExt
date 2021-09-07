@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import static ga.epicpix.mcfext.Utils.error;
-import static ga.epicpix.mcfext.Utils.warn;
+import static ga.epicpix.mcfext.Utils.*;
+import static ga.epicpix.mcfext.Utils.repeat;
 
 public class Compiler {
 
@@ -88,7 +88,11 @@ public class Compiler {
                 return null;
             }
             if(out instanceof CommandError) {
-                error(out);
+                int cmddin = iter.getPosition() + 1;
+                iter.reset();
+                String cmdd = iter.rest();
+                error(cmdd + "\n" + repeat(" ", cmddin) + "^");
+                error(out, false);
                 return null;
             }
             return (CommandData) out;
