@@ -28,11 +28,11 @@ public class Datapack {
         boolean hasMeta = new File(root, "pack.mcmeta").exists();
         if(hasMeta) {
             JsonObject metaData = new Gson().fromJson(new String(Files.readAllBytes(new File(root, "pack.mcmeta").toPath())), JsonObject.class);
-            if(metaData.getAsJsonObject("data").get("pack_format").getAsInt() != PACK_FORMAT) {
+            if(metaData.getAsJsonObject("pack").get("pack_format").getAsInt() != PACK_FORMAT) {
                 error("Unsupported version");
                 return null;
             }
-            pack.description = metaData.getAsJsonObject("data").get("description").getAsString();
+            pack.description = metaData.getAsJsonObject("pack").get("description").getAsString();
             File data = new File(root, "data");
             if(!data.exists()) {
                 error("Data folder doesn't exist");
