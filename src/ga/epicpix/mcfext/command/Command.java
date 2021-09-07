@@ -71,6 +71,7 @@ public final class Command {
             }
             throw new SyntaxNotHandledException("Not handled syntax: " + syn);
         }else if(syntax instanceof Map) {
+            data.removeNextWhitespace();
             Map<String, Object> sMap = (Map<String, Object>) syntax;
             for(Entry<String, Object> entry : sMap.entrySet()) {
                 String[] values = entry.getKey().split("\\|");
