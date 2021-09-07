@@ -88,7 +88,7 @@ public class Compiler {
                 return null;
             }
             if(out instanceof CommandError) {
-                int cmddin = iter.getPosition() + 1;
+                int cmddin = iter.getPosition();
                 iter.reset();
                 String cmdd = iter.rest();
                 error(cmdd + "\n" + repeat(" ", cmddin) + "^");
@@ -97,7 +97,10 @@ public class Compiler {
             }
             return (CommandData) out;
         } else {
-            error("Unknown command: " + cmdName + " | " + line.reset().rest());
+            iter.reset();
+            String cmdd = iter.rest();
+            error(cmdd + "\n" + "^");
+            error(new CommandError("Unknown command"), false);
             return null;
         }
     }

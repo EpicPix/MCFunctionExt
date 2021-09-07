@@ -41,6 +41,7 @@ public final class Command {
                 vals.add(data.restW());
                 return vals;
             }else if(sarg0.equals("@command")) {
+                int back = data.getPosition();
                 Command cmd;
                 if(sarg1 != null) {
                     cmd = getCommand(sarg1);
@@ -49,7 +50,10 @@ public final class Command {
                     vals.add(cmdname);
                     cmd = getCommand(cmdname);
                 }
-                if(cmd == null) return new CommandError("Unknown command");
+                if(cmd == null) {
+                    data.setPosition(back);
+                    return new CommandError("Unknown command");
+                }
                 Object parsed = cmd.parse(pack, fun, data, vars);
                 if(parsed == null || parsed instanceof CommandError) {
                     return parsed;
