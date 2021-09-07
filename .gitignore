@@ -11,3 +11,4 @@ out/
 # Language
 *.mcfunction
 compiled/
+run/
