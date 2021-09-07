@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
@@ -49,6 +50,7 @@ public class Datapack {
                 ArrayList<File> files = new ArrayList<>();
                 File[] rfiles = fileNamespace.listFiles();
                 if(rfiles == null) {
+                    error("Could not list contents of " + fileNamespace.getName() + " namespace");
                     return null;
                 }
                 Collections.addAll(files, rfiles);
@@ -61,7 +63,7 @@ public class Datapack {
                             Collections.addAll(files, containing);
                         }
                     }else {
-                        if(f.getName().endsWith(".emcfun")) {
+                        if(f.getName().endsWith(".emcfun") || f.getName().endsWith(".mcfunction")) {
                             ns.declaredFunctions.add(new DeclaredFunction(ns, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f));
                         }
 
@@ -92,7 +94,7 @@ public class Datapack {
                         Collections.addAll(files, containing);
                     }
                 }else {
-                    if(f.getName().endsWith(".emcfun")) {
+                    if(f.getName().endsWith(".emcfun") || f.getName().endsWith(".mcfunction")) {
                         unknown.declaredFunctions.add(new DeclaredFunction(unknown, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f));
                     }
 
