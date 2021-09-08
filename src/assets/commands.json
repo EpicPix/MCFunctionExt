@@ -53,6 +53,40 @@
     }
   },
   {
+    "name": "data",
+    "syntax": {
+      "get": {
+        "block": {
+          "@vec3d": {
+            "@none": "@end",
+            "@nbt_path": {
+              "@none": "@end",
+              "@double": "@end"
+            }
+          }
+        },
+        "entity": {
+          "@selector": {
+            "@none": "@end",
+            "@nbt_path": {
+              "@none": "@end",
+              "@double": "@end"
+            }
+          }
+        },
+        "storage": {
+          "@resource": {
+            "@none": "@end",
+            "@nbt_path": {
+              "@none": "@end",
+              "@double": "@end"
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "defaultgamemode",
     "syntax": {
       "survival|creative|adventure|spectator": "@end"
