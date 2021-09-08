@@ -7,8 +7,10 @@ import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.advancements.Advancement;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
+import ga.epicpix.mcfext.datapacks.Function;
 import ga.epicpix.mcfext.datapacks.Namespace;
 import ga.epicpix.mcfext.exceptions.SyntaxNotHandledException;
+import ga.epicpix.mcfext.methods.Method;
 import ga.epicpix.mcfext.nbt.NBTPath;
 import ga.epicpix.mcfext.pos.Vec2d;
 import ga.epicpix.mcfext.pos.Vec3d;
@@ -225,6 +227,20 @@ public final class Command {
             warn("[" + name + "] " + warning);
         }
         try {
+            if(name.equals("method")) {
+                String methodName = data.nextWord();
+                Method m = null;
+                for(Function f : pack.getNamespace(fun.getResourceLocation().getNamespace()).getFunctions()) {
+                    if(f instanceof Method) {
+                        if(((Method) f).getName().equals(methodName)) {
+                            m = (Method) f;
+                        }
+                    }
+                }
+                if(m == null) return new CommandError("Method " + methodName + " not found");
+                return new CommandData(getCommand("function"), m.getResourceLocation());
+            }
+
             Object objs = parseObjs(pack, fun, syntax, data, vars, new ArrayList<>());
 
             if (objs == null) return null;
@@ -235,7 +251,7 @@ public final class Command {
             } else if (objs instanceof Object[]) {
                 return new CommandData(this, (Object[]) objs);
             } else {
-                return new CommandData(this, new Object[]{objs});
+                return new CommandData(this, objs);
             }
         }catch(RuntimeException e) {
             System.err.println("Runtime Exception in command: " + data.reset().rest());

@@ -251,5 +251,9 @@
         "@none": "@end"
       }
     }
+  },
+  {
+    "name": "method",
+    "vanilla": false
   }
 ]

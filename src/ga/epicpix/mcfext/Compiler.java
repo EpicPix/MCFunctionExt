@@ -6,6 +6,7 @@ import ga.epicpix.mcfext.command.CommandError;
 import ga.epicpix.mcfext.command.CommandStringIterator;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
+import ga.epicpix.mcfext.exceptions.SyntaxNotHandledException;
 
 import java.io.File;
 import java.io.IOException;
@@ -75,6 +76,30 @@ public class Compiler {
             }else {
                 warn("Unknown operation: " + operation);
             }
+            return null;
+        }else if(wcmd.equals("defmethod")) {
+            String name = line.nextWord();
+            if(line.hasNext()) {
+                if(!line.nextWord().equals("{")) {
+                    throw new SyntaxNotHandledException("Invalid method creation");
+                }
+            }else {
+                if(!new CommandStringIterator(lines.next()).nextWord().equals("{")) {
+                    throw new SyntaxNotHandledException("Could not create method");
+                }
+            }
+            ArrayList<String> l = new ArrayList<>();
+            while(lines.hasNext()) {
+                String n = lines.next();
+                if(n.equals("}")) {
+                    break;
+                }
+                l.add(n);
+            }
+            ResourceLocation res = fun.getResourceLocation();
+            DeclaredFunction func = new DeclaredFunction(pack.getNamespace(res.getNamespace()), res.getLocation() + "-" + name, null);
+            ArrayList<CommandData> data = compileFunction(pack, func, l);
+            pack.getNamespace(res.getNamespace()).addMethod(fun, name, data);
             return null;
         }
         CommandStringIterator iter = new CommandStringIterator(vars.placeVariables(line.reset().removeNextWhitespace().rest()));

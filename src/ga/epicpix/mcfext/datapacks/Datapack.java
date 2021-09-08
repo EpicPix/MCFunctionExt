@@ -45,7 +45,7 @@ public class Datapack {
                 return null;
             }
             for(File fileNamespace : dataContents) {
-                Namespace ns = new Namespace(fileNamespace.getName());
+                Namespace ns = new Namespace(pack, fileNamespace.getName());
                 pack.namespaces.add(ns);
                 ArrayList<File> files = new ArrayList<>();
                 File[] rfiles = fileNamespace.listFiles();
@@ -77,7 +77,7 @@ public class Datapack {
                 }
             }
         }else {
-            Namespace unknown = new Namespace("unknown");
+            Namespace unknown = new Namespace(pack, "unknown");
             pack.namespaces.add(unknown);
             ArrayList<File> files = new ArrayList<>();
             File[] rfiles = root.listFiles();

@@ -7,7 +7,7 @@ public class CommandData {
 
     private final String errorMessage;
 
-    public CommandData(Command command, Object[] data) {
+    public CommandData(Command command, Object... data) {
         this.command = command;
         this.data = data;
         this.errorMessage = null;
