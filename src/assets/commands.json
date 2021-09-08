@@ -63,6 +63,26 @@
             "@double": "@end"
           }
         }
+      },
+      "merge": {
+        "@multi block @vec3d/entity @selector/storage @resource": "@any"
+      },
+      "modify": {
+        "@multi block @vec3d/entity @selector/storage @resource": {
+          "@nbt_path": {
+            "@multi append/insert @int/merge/prepend/set": {
+              "from": {
+                "@multi block @vec3d/entity @selector/storage @resource": {
+                  "@nbt_path": "@end"
+                }
+              },
+              "value": "@any"
+            }
+          }
+        }
+      },
+      "remove": {
+        "@multi block @vec3d/entity @selector/storage @resource": "@any"
       }
     }
   },
