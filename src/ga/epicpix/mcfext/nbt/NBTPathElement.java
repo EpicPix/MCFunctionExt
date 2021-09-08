@@ -1,11 +1,11 @@
 package ga.epicpix.mcfext.nbt;
 
-public class NBTSelectorElement {
+public class NBTPathElement {
 
     private final String name;
     private final Integer index;
 
-    public NBTSelectorElement(String name, Integer index) {
+    public NBTPathElement(String name, Integer index) {
         this.name = name;
         this.index = index;
     }

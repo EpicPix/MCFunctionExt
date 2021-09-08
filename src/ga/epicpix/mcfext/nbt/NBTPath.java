@@ -4,15 +4,15 @@ import ga.epicpix.mcfext.command.CommandStringIterator;
 
 import java.util.ArrayList;
 
-public class NBTSelector {
+public class NBTPath {
 
-    private final NBTSelectorElement[] elements;
+    private final NBTPathElement[] elements;
 
-    public NBTSelector(NBTSelectorElement... elements) {
+    public NBTPath(NBTPathElement... elements) {
         this.elements = elements;
     }
 
-    private static NBTSelectorElement toSelectorElement(String el) {
+    private static NBTPathElement toSelectorElement(String el) {
         CommandStringIterator iter = new CommandStringIterator(el);
         StringBuilder name = new StringBuilder();
         StringBuilder indexs = new StringBuilder();
@@ -33,14 +33,14 @@ public class NBTSelector {
                 }
             }
         }
-        return new NBTSelectorElement(name.toString(), (indexs.length() == 0) ? null : Integer.parseInt(indexs.toString()));
+        return new NBTPathElement(name.toString(), (indexs.length() == 0) ? null : Integer.parseInt(indexs.toString()));
     }
 
-    public static NBTSelector nextSelector(CommandStringIterator iter) {
+    public static NBTPath nextSelector(CommandStringIterator iter) {
         iter.removeNextWhitespace();
         boolean inString = false;
         StringBuilder str = new StringBuilder();
-        ArrayList<NBTSelectorElement> els = new ArrayList<>();
+        ArrayList<NBTPathElement> els = new ArrayList<>();
         while(iter.hasNext()) {
             char next = iter.nextChar();
             if(next == '\"') {
@@ -59,12 +59,12 @@ public class NBTSelector {
         if(str.length() > 0) {
             els.add(toSelectorElement(str.toString()));
         }
-        return new NBTSelector(els.toArray(new NBTSelectorElement[0]));
+        return new NBTPath(els.toArray(new NBTPathElement[0]));
     }
 
     public String toString() {
         StringBuilder str = new StringBuilder();
-        for(NBTSelectorElement element : elements) {
+        for(NBTPathElement element : elements) {
             str.append(".").append(element.toString());
         }
         return str.substring(1);

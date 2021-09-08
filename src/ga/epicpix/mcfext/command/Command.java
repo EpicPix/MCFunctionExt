@@ -9,7 +9,7 @@ import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
 import ga.epicpix.mcfext.datapacks.Namespace;
 import ga.epicpix.mcfext.exceptions.SyntaxNotHandledException;
-import ga.epicpix.mcfext.nbt.NBTSelector;
+import ga.epicpix.mcfext.nbt.NBTPath;
 import ga.epicpix.mcfext.pos.Vec2d;
 import ga.epicpix.mcfext.pos.Vec3d;
 
@@ -142,8 +142,8 @@ public final class Command {
                                 vals.add(Integer.parseInt(data.nextWord()));
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }catch(NumberFormatException ignored) {}
-                        }else if(args[0].equals("@nbt_selector")) {
-                            vals.add(NBTSelector.nextSelector(data));
+                        }else if(args[0].equals("@nbt_path")) {
+                            vals.add(NBTPath.nextSelector(data));
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@none")) {
                             if(!data.hasNext()) {
