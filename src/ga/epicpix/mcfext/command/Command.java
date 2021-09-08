@@ -150,13 +150,16 @@ public final class Command {
                                 String[] sa = st.split(" ");
                                 HashMap<String, Object> objs = new HashMap<>();
                                 start.put(sa[0], objs);
-                                HashMap<String, Object> pobjs = objs;
+                                HashMap<String, Object> pobjs = null;
                                 for(int i = 1; i<sa.length; i++) {
                                     pobjs = objs;
                                     objs = new HashMap<>();
                                     pobjs.put(sa[i], objs);
                                 }
-                                pobjs.put(sa[sa.length - 1], entry.getValue());
+                                if(pobjs != null)
+                                    pobjs.put(sa[sa.length - 1], entry.getValue());
+                                else
+                                    start.put(sa[0], entry.getValue());
                             }
                             return parseObjs(pack, fun, start, data, vars, vals);
                         }else if(args[0].equals("@nbt_path")) {
