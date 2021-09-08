@@ -56,31 +56,11 @@
     "name": "data",
     "syntax": {
       "get": {
-        "block": {
-          "@vec3d": {
+        "@multi block @vec3d/entity @selector/storage @resource": {
+          "@none": "@end",
+          "@nbt_path": {
             "@none": "@end",
-            "@nbt_path": {
-              "@none": "@end",
-              "@double": "@end"
-            }
-          }
-        },
-        "entity": {
-          "@selector": {
-            "@none": "@end",
-            "@nbt_path": {
-              "@none": "@end",
-              "@double": "@end"
-            }
-          }
-        },
-        "storage": {
-          "@resource": {
-            "@none": "@end",
-            "@nbt_path": {
-              "@none": "@end",
-              "@double": "@end"
-            }
+            "@double": "@end"
           }
         }
       }

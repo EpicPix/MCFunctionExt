@@ -77,6 +77,7 @@ public final class Command {
             for(Entry<String, Object> entry : sMap.entrySet()) {
                 String[] values = entry.getKey().split("\\|");
                 for(String val : values) {
+                    val = val.trim();
                     int pos = data.getPosition();
                     if(val.startsWith("@")) {
                         String[] args = val.split(" ");
@@ -142,6 +143,22 @@ public final class Command {
                                 vals.add(Integer.parseInt(data.nextWord()));
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }catch(NumberFormatException ignored) {}
+                        }else if(args[0].equals("@multi")) {
+                            String[] ss = val.split(" ", 2)[1].split("/");
+                            HashMap<String, Object> start = new HashMap<>();
+                            for(String st : ss) {
+                                String[] sa = st.split(" ");
+                                HashMap<String, Object> objs = new HashMap<>();
+                                start.put(sa[0], objs);
+                                HashMap<String, Object> pobjs = objs;
+                                for(int i = 1; i<sa.length; i++) {
+                                    pobjs = objs;
+                                    objs = new HashMap<>();
+                                    pobjs.put(sa[i], objs);
+                                }
+                                pobjs.put(sa[sa.length - 1], entry.getValue());
+                            }
+                            return parseObjs(pack, fun, start, data, vars, vals);
                         }else if(args[0].equals("@nbt_path")) {
                             vals.add(NBTPath.nextSelector(data));
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
