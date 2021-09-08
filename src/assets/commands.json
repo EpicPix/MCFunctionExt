@@ -155,6 +155,22 @@
     "syntax": "@end"
   },
   {
+    "name": "schedule",
+    "syntax": {
+      "function": {
+        "@function": {
+          "@time": {
+            "append|replace": "@end",
+            "@none": "@end"
+          }
+        }
+      },
+      "clear": {
+        "@function": "@end"
+      }
+    }
+  },
+  {
     "name": "tag",
     "syntax": {
       "@selector": {

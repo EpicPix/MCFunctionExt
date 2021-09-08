@@ -96,6 +96,7 @@ public class CommandStringIterator {
 
     public Long nextTime() {
         String word = nextWord();
+        if(word == null) return null;
         String unit = "t";
         if(word.endsWith("t") || word.endsWith("s") || word.endsWith("d")) {
             unit = word.substring(word.length() - 1);
