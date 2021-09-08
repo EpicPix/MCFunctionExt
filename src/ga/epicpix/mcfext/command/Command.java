@@ -224,17 +224,22 @@ public final class Command {
         if(warning!=null) {
             warn("[" + name + "] " + warning);
         }
-        Object objs = parseObjs(pack, fun, syntax, data, vars, new ArrayList<>());
+        try {
+            Object objs = parseObjs(pack, fun, syntax, data, vars, new ArrayList<>());
 
-        if(objs==null) return null;
-        if(objs instanceof CommandError) return objs;
+            if (objs == null) return null;
+            if (objs instanceof CommandError) return objs;
 
-        if(objs instanceof ArrayList) {
-            return new CommandData(this, ((ArrayList<Object>) objs).toArray(new Object[0]));
-        }else if(objs instanceof Object[]) {
-            return new CommandData(this, (Object[]) objs);
-        }else {
-            return new CommandData(this, new Object[] {objs});
+            if (objs instanceof ArrayList) {
+                return new CommandData(this, ((ArrayList<Object>) objs).toArray(new Object[0]));
+            } else if (objs instanceof Object[]) {
+                return new CommandData(this, (Object[]) objs);
+            } else {
+                return new CommandData(this, new Object[]{objs});
+            }
+        }catch(RuntimeException e) {
+            System.err.println("Runtime Exception in command: " + data.reset().rest());
+            throw e;
         }
     }
 
