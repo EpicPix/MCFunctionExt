@@ -101,6 +101,7 @@ public class CommandStringIterator {
             unit = word.substring(word.length() - 1);
             word = word.substring(0, word.length() - 1);
         }
+        if(word.startsWith(".")) word = "0" + word;
         double d = Double.parseDouble(word);
         if(unit.equals("t")) {
             return (long) d;
