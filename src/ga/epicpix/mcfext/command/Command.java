@@ -155,6 +155,9 @@ public final class Command {
                         }else if(args[0].equals("@selector")) {
                             vals.add(data.nextSelector());
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                        }else if(args[0].equals("@time")) {
+                            vals.add(data.nextTime());
+                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@uuid")) {
                             try {
                                 vals.add(UUID.fromString(data.nextWord()));

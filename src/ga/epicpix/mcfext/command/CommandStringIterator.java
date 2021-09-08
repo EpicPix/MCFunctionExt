@@ -94,6 +94,25 @@ public class CommandStringIterator {
         return Vec3d.nextVec3d(this);
     }
 
+    public long nextTime() {
+        String word = nextWord();
+        String unit = "t";
+        if(word.endsWith("t") || word.endsWith("s") || word.endsWith("d")) {
+            unit = word.substring(word.length() - 1);
+            word = word.substring(0, word.length() - 1);
+        }
+        double d = Double.parseDouble(word);
+        if(unit.equals("t")) {
+            return (long) d;
+        }else if(unit.equals("s")) {
+            return (long) (d * 20);
+        }else if(unit.equals("d")) {
+            return (long) (d * 24000);
+        }else {
+            return -1;
+        }
+    }
+
     public CommandStringIterator removeNextWhitespace() {
         while(index < str.length()) {
             char c = str.charAt(index);
