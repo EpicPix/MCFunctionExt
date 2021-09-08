@@ -94,7 +94,7 @@ public class CommandStringIterator {
         return Vec3d.nextVec3d(this);
     }
 
-    public long nextTime() {
+    public Long nextTime() {
         String word = nextWord();
         String unit = "t";
         if(word.endsWith("t") || word.endsWith("s") || word.endsWith("d")) {
@@ -102,15 +102,19 @@ public class CommandStringIterator {
             word = word.substring(0, word.length() - 1);
         }
         if(word.startsWith(".")) word = "0" + word;
-        double d = Double.parseDouble(word);
-        if(unit.equals("t")) {
-            return (long) d;
-        }else if(unit.equals("s")) {
-            return (long) (d * 20);
-        }else if(unit.equals("d")) {
-            return (long) (d * 24000);
-        }else {
-            return -1;
+        try {
+            double d = Double.parseDouble(word);
+            if (unit.equals("t")) {
+                return (long) d;
+            } else if (unit.equals("s")) {
+                return (long) (d * 20);
+            } else if (unit.equals("d")) {
+                return (long) (d * 24000);
+            } else {
+                return null;
+            }
+        }catch(NumberFormatException e) {
+            return null;
         }
     }
 

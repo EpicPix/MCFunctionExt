@@ -166,6 +166,21 @@
     }
   },
   {
+    "name": "time",
+    "syntax": {
+      "add": {
+        "@time": "@end"
+      },
+      "query": {
+        "daytime|gametime|day": "@end"
+      },
+      "set": {
+        "day|night|noon|midnight": "@end",
+        "@time": "@end"
+      }
+    }
+  },
+  {
     "name": "trigger",
     "syntax": {
       "@word": {
