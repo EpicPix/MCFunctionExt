@@ -11,7 +11,7 @@ import static ga.epicpix.mcfext.Utils.error;
 public class EntitySelector extends Selector {
 
     public enum TargetSelector {
-        NEAREST("r"),
+        NEAREST("p"),
         RANDOM("r"),
         PLAYERS("a"),
         ENTITIES("e"),
