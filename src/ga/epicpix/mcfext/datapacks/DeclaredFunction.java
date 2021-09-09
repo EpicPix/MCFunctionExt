@@ -10,11 +10,13 @@ public class DeclaredFunction implements Resource {
     private final Namespace namespace;
     private final String name;
     private final File file;
+    private final boolean vanillaMode;
 
-    public DeclaredFunction(Namespace ns, String name, File file) {
+    public DeclaredFunction(Namespace ns, String name, File file, boolean vanillaMode) {
         namespace = ns;
         this.name = name;
         this.file = file;
+        this.vanillaMode = vanillaMode;
     }
 
     public ResourceLocation getResourceLocation() {
@@ -27,5 +29,9 @@ public class DeclaredFunction implements Resource {
 
     public String toString() {
         return getResourceLocation().toString();
+    }
+
+    public boolean isVanillaMode() {
+        return vanillaMode;
     }
 }

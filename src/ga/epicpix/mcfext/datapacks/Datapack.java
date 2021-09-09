@@ -10,12 +10,10 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.regex.Pattern;
 
 import static ga.epicpix.mcfext.Utils.error;
-import static ga.epicpix.mcfext.Utils.info;
 
 public class Datapack {
 
@@ -63,8 +61,9 @@ public class Datapack {
                             Collections.addAll(files, containing);
                         }
                     }else {
-                        if(f.getName().endsWith(".emcfun") || f.getName().endsWith(".mcfunction")) {
-                            ns.declaredFunctions.add(new DeclaredFunction(ns, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f));
+                        boolean vanillaMode = f.getName().endsWith(".mcfunction");
+                        if(vanillaMode || f.getName().endsWith(".emcfun")) {
+                            ns.declaredFunctions.add(new DeclaredFunction(ns, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f, vanillaMode));
                         }
 
                     }
@@ -94,8 +93,9 @@ public class Datapack {
                         Collections.addAll(files, containing);
                     }
                 }else {
-                    if(f.getName().endsWith(".emcfun") || f.getName().endsWith(".mcfunction")) {
-                        unknown.declaredFunctions.add(new DeclaredFunction(unknown, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f));
+                    boolean vanillaMode = f.getName().endsWith(".mcfunction");
+                    if(vanillaMode || f.getName().endsWith(".emcfun")) {
+                        unknown.declaredFunctions.add(new DeclaredFunction(unknown, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f, vanillaMode));
                     }
 
                 }

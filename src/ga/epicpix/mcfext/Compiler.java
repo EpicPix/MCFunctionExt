@@ -67,7 +67,7 @@ public class Compiler {
     public static CommandData compileLine(Datapack pack, DeclaredFunction fun, CommandStringIterator iter, Variables vars) {
         iter.nextLine();
         String wcmd = iter.nextWord();
-        if(wcmd.startsWith("$")) {
+        if(!fun.isVanillaMode() && wcmd.startsWith("$")) {
             String name = wcmd.substring(1);
             String operation = iter.nextWord();
             String value = vars.placeVariables(iter.removeNextWhitespace().rest());
@@ -77,7 +77,7 @@ public class Compiler {
                 warn("Unknown operation: " + operation);
             }
             return null;
-        }else if(wcmd.equals("defmethod")) {
+        }else if(!fun.isVanillaMode() && wcmd.equals("defmethod")) {
             String name = iter.nextWord();
             if(iter.hasNext()) {
                 if(!iter.nextWord().equals("{")) {
@@ -97,13 +97,14 @@ public class Compiler {
                 l.add(n);
             }
             ResourceLocation res = fun.getResourceLocation();
-            DeclaredFunction func = new DeclaredFunction(pack.getNamespace(res.getNamespace()), res.getLocation() + "-" + name, null);
+            DeclaredFunction func = new DeclaredFunction(pack.getNamespace(res.getNamespace()), res.getLocation() + "-" + name, null, false);
             ArrayList<CommandData> data = compileFunction(pack, func, l);
             pack.getNamespace(res.getNamespace()).addMethod(fun, name, data);
             return null;
         }
 
-        iter.addLineVariables(vars);
+        if(!fun.isVanillaMode()) iter.addLineVariables(vars);
+        else iter.setPosition(0);
 
         String cmdName = iter.nextWord();
         Command cmd = Command.getCommand(cmdName);
