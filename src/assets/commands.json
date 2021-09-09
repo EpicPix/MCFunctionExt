@@ -145,6 +145,27 @@
     }
   },
   {
+    "name": "forceload",
+    "syntax": {
+      "add": {
+        "@vec2d": {
+          "@none": "@end",
+          "@vec2d": "@end"
+        }
+      },
+      "remove": {
+        "all": "@end",
+        "@vec2d": {
+          "@none": "@end",
+          "@vec2d": "@end"
+        }
+      },
+      "query": {
+        "@vec2d": "@end"
+      }
+    }
+  },
+  {
     "name": "function",
     "syntax": {
       "@function": "@end"
