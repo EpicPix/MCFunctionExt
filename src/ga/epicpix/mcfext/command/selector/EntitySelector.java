@@ -1,5 +1,6 @@
 package ga.epicpix.mcfext.command.selector;
 
+import ga.epicpix.mcfext.command.CommandError;
 import ga.epicpix.mcfext.command.selector.SelectorAccessible.Type;
 import ga.epicpix.mcfext.command.CommandStringIterator;
 import java.lang.reflect.Field;
@@ -104,15 +105,14 @@ public class EntitySelector extends Selector {
         return null;
     }
 
-    void apply(String data) {
+    Object apply(String data) {
         if(!data.isEmpty()) {
             CommandStringIterator iter = new CommandStringIterator(data);
             boolean first = true;
             while(iter.hasNext()) {
                 if(!first) {
                     if(iter.nextChar() != ',') {
-                        error("Invalid selector");
-                        return;
+                        return new CommandError("Invalid Selector");
                     }
                 }
                 StringBuilder key = new StringBuilder();
@@ -132,23 +132,21 @@ public class EntitySelector extends Selector {
                     if(f.isAnnotationPresent(SelectorAccessible.class)) {
                         SelectorAccessible anno = f.getAnnotation(SelectorAccessible.class);
                         if(!anno.changeable() && f.get(this) != null) {
-                            error("Invalid selector");
-                            return;
+                            return new CommandError("Invalid Selector");
                         }else {
                             f.set(this, readType(anno.value(), iter));
                         }
                     }else {
-                        error("Invalid selector");
-                        return;
+                        return new CommandError("Invalid Selector");
                     }
                 }catch(Exception e) {
-                    error("Invalid selector");
-                    return;
+                    return new CommandError("Invalid Selector");
                 }
 
                 first = false;
             }
         }
+        return null;
     }
 
     public TargetSelector getTargetSelector() {

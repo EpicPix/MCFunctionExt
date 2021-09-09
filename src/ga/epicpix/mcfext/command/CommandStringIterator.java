@@ -107,7 +107,7 @@ public class CommandStringIterator {
         return new ResourceLocation(null, nextWord(), namespace);
     }
 
-    public Selector nextSelector() {
+    public Object nextSelector() {
         return Selector.nextSelector(this);
     }
 

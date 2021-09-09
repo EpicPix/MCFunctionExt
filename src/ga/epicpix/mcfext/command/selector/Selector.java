@@ -1,13 +1,12 @@
 package ga.epicpix.mcfext.command.selector;
 
+import ga.epicpix.mcfext.command.CommandError;
 import ga.epicpix.mcfext.command.selector.EntitySelector.TargetSelector;
 import ga.epicpix.mcfext.command.CommandStringIterator;
 
-import static ga.epicpix.mcfext.Utils.error;
-
 public class Selector {
 
-    public static Selector nextSelector(CommandStringIterator iter) {
+    public static Object nextSelector(CommandStringIterator iter) {
         iter.removeNextWhitespace();
 
         StringBuilder temp = new StringBuilder();
@@ -27,8 +26,7 @@ public class Selector {
         EntitySelector selector = new EntitySelector(TargetSelector.getTargetSelector(temp.toString()));
 
         if(selector.getTargetSelector() == null) {
-            error("Invalid selector: @" + temp);
-            return null;
+            return new CommandError("Invalid selector: @" + temp);
         }
 
         if(more) {
@@ -61,9 +59,10 @@ public class Selector {
                 data.append(c);
             }
             if(!finished) {
-                error("Selector not finished");
+                return new CommandError("Selector not finished");
             }
-            selector.apply(data.toString());
+            Object out = selector.apply(data.toString());
+            if(out != null) return out;
         }
 
         return selector;

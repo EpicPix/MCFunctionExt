@@ -8,6 +8,7 @@ import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.advancements.Advancement;
+import ga.epicpix.mcfext.command.selector.Selector;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
 import ga.epicpix.mcfext.datapacks.Function;
@@ -184,8 +185,11 @@ public final class Command {
                             vals.add(data.nextResourceLocation());
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@selector")) {
-                            vals.add(data.nextSelector());
-                            return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            Object o = data.nextSelector();
+                            if(o instanceof Selector) {
+                                vals.add(o);
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
                         }else if(args[0].equals("@time")) {
                             Long time = data.nextTime();
                             if(time != null) {
