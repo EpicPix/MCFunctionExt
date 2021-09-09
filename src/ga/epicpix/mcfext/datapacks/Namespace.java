@@ -37,4 +37,8 @@ public class Namespace {
         }
         return null;
     }
+
+    public String toString() {
+        return getName();
+    }
 }

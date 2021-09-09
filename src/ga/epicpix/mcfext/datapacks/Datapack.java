@@ -64,7 +64,7 @@ public class Datapack {
                     }else {
                         boolean vanillaMode = f.getName().endsWith(".mcfunction");
                         if(vanillaMode || f.getName().endsWith(".emcfun")) {
-                            ns.declaredFunctions.add(new DeclaredFunction(ns, f.getPath().split(Pattern.quote(File.separator), 2)[1].split("\\.", 2)[0], f, vanillaMode));
+                            ns.declaredFunctions.add(new DeclaredFunction(ns, f.getPath().split(Pattern.quote(File.separator), 5)[4].split("\\.", 2)[0], f, vanillaMode));
                         }
 
                     }
