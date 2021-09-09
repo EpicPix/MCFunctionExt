@@ -5,6 +5,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+import ga.epicpix.mcfext.Effect;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.advancements.Advancement;
@@ -125,6 +126,13 @@ public final class Command {
                                 vals.add(Double.parseDouble(data.nextWord()));
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }catch(NumberFormatException ignored) {}
+                        }else if(args[0].equals("@effect")) {
+                            ResourceLocation radv = data.nextResourceLocation();
+                            Effect eff = Effect.getEffect(radv);
+                            if(eff != null) {
+                                vals.add(eff);
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }
                         }else if(args[0].equals("@else")) {
                             return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                         }else if(args[0].equals("@function")) {

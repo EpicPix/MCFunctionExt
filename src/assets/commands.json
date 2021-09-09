@@ -99,6 +99,32 @@
     }
   },
   {
+    "name": "effect",
+    "syntax": {
+      "clear": {
+        "@none": "@end",
+        "@selector": {
+          "@none": "@end",
+          "@effect": "@end"
+        }
+      },
+      "give": {
+        "@selector": {
+          "@effect": {
+            "@none": "@end",
+            "@int": {
+              "@none": "@end",
+              "@int": {
+                "@none": "@end",
+                "@boolean": "@end"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "execute",
     "syntax": {
       "anchored": {
