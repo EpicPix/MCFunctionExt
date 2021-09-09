@@ -21,17 +21,19 @@ public final class Utils {
         System.err.println("[WARNING] " + msg.toString().replace("\n", "\n[WARNING] "));
     }
 
-    public static void error(Object msg, boolean count) {
-        System.err.println("[ERROR] " + msg.toString().replace("\n", "\n[ERROR] "));
-        if(msg instanceof CommandError) {
-            if (DEBUG)
-                ((CommandError) msg).printStackTrace();
+    public static void error(boolean count, Object... msgs) {
+        for(Object msg : msgs) {
+            System.err.println("[ERROR] " + msg.toString().replace("\n", "\n[ERROR] "));
+            if (msg instanceof CommandError) {
+                if (DEBUG)
+                    ((CommandError) msg).printStackTrace();
+            }
         }
         if(count) errorCount++;
     }
 
-    public static void error(Object msg) {
-        error(msg, true);
+    public static void error(Object... msg) {
+        error(true, msg);
     }
 
     public static int getErrorCount() {

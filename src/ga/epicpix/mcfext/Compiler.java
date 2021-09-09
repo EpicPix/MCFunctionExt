@@ -12,11 +12,11 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import static ga.epicpix.mcfext.Utils.*;
+import static ga.epicpix.mcfext.Utils.error;
 import static ga.epicpix.mcfext.Utils.repeat;
+import static ga.epicpix.mcfext.Utils.warn;
 
 public class Compiler {
 
@@ -30,14 +30,13 @@ public class Compiler {
     }
 
     public static ArrayList<CommandData> compileFunction(Datapack pack, DeclaredFunction fun, List<String> data) {
-        List<String> lines = compile0(data);
+        CommandStringIterator iter = new CommandStringIterator(compileMin(data));
 
         Variables variables = new Variables();
         ArrayList<CommandData> output = new ArrayList<>();
-        Iterator<String> lineIterator = lines.iterator();
 
-        while(lineIterator.hasNext()) {
-            CommandData cline = compileLine(pack, fun, new CommandStringIterator(lineIterator.next()), lineIterator, variables);
+        while(iter.hasNextLine()) {
+            CommandData cline = compileLine(pack, fun, iter, variables);
             if (cline != null) {
                 output.add(cline);
             }
@@ -46,7 +45,7 @@ public class Compiler {
         return output;
     }
 
-    private static List<String> compile0(List<String> lines) {
+    private static List<String> compileMin(List<String> lines) {
         ArrayList<String> array = new ArrayList<>(lines);
         array.removeIf(a -> a.trim().isEmpty() || a.trim().startsWith("#"));
         ArrayList<String> out = new ArrayList<>();
@@ -65,12 +64,13 @@ public class Compiler {
         return out;
     }
 
-    public static CommandData compileLine(Datapack pack, DeclaredFunction fun, CommandStringIterator line, Iterator<String> lines, Variables vars) {
-        String wcmd = line.nextWord();
+    public static CommandData compileLine(Datapack pack, DeclaredFunction fun, CommandStringIterator iter, Variables vars) {
+        iter.nextLine();
+        String wcmd = iter.nextWord();
         if(wcmd.startsWith("$")) {
             String name = wcmd.substring(1);
-            String operation = line.nextWord();
-            String value = vars.placeVariables(line.removeNextWhitespace().rest());
+            String operation = iter.nextWord();
+            String value = vars.placeVariables(iter.removeNextWhitespace().rest());
             if(operation.equals("=")) {
                 vars.set(name, value);
             }else {
@@ -78,19 +78,19 @@ public class Compiler {
             }
             return null;
         }else if(wcmd.equals("defmethod")) {
-            String name = line.nextWord();
-            if(line.hasNext()) {
-                if(!line.nextWord().equals("{")) {
+            String name = iter.nextWord();
+            if(iter.hasNext()) {
+                if(!iter.nextWord().equals("{")) {
                     throw new SyntaxNotHandledException("Invalid method creation");
                 }
             }else {
-                if(!new CommandStringIterator(lines.next()).nextWord().equals("{")) {
+                if(!iter.nextLine().nextWord().equals("{")) {
                     throw new SyntaxNotHandledException("Could not create method");
                 }
             }
             ArrayList<String> l = new ArrayList<>();
-            while(lines.hasNext()) {
-                String n = lines.next();
+            while(iter.hasNextLine()) {
+                String n = iter.nextLine().rest();
                 if(n.equals("}")) {
                     break;
                 }
@@ -102,7 +102,8 @@ public class Compiler {
             pack.getNamespace(res.getNamespace()).addMethod(fun, name, data);
             return null;
         }
-        CommandStringIterator iter = new CommandStringIterator(vars.placeVariables(line.reset().removeNextWhitespace().rest()));
+
+        iter.addLineVariables(vars);
 
         String cmdName = iter.nextWord();
         Command cmd = Command.getCommand(cmdName);
@@ -113,19 +114,12 @@ public class Compiler {
                 return null;
             }
             if(out instanceof CommandError) {
-                int cmddin = iter.getPosition();
-                iter.reset();
-                String cmdd = iter.rest();
-                error(cmdd + "\n" + repeat(" ", cmddin) + "^");
-                error(out, false);
+                error(iter.currentLine() + "\n" + repeat(" ", iter.getPosition()) + "^", out);
                 return null;
             }
             return (CommandData) out;
         } else {
-            iter.reset();
-            String cmdd = iter.rest();
-            error(cmdd + "\n" + "^");
-            error(new CommandError("Unknown command"), false);
+            error(iter.currentLine() + "\n^", new CommandError("Unknown command"));
             return null;
         }
     }

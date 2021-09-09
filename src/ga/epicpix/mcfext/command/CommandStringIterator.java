@@ -1,47 +1,79 @@
 package ga.epicpix.mcfext.command;
 
 import ga.epicpix.mcfext.ResourceLocation;
+import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.command.selector.Selector;
 import ga.epicpix.mcfext.pos.Position;
 import ga.epicpix.mcfext.pos.Vec2d;
 import ga.epicpix.mcfext.pos.Vec3d;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import static ga.epicpix.mcfext.Utils.error;
 
 public class CommandStringIterator {
 
-    private final String str;
+    private final ArrayList<String> lines;
+    private int lineIndex = -1;
+    private String line;
     private int index;
 
-    public CommandStringIterator(String str) {
-        this.str = str;
+    public CommandStringIterator(String line) {
+        this.lines = new ArrayList<>(Collections.singletonList(line));
+        nextLine();
+    }
+
+    public CommandStringIterator(List<String> lines) {
+        this.lines = new ArrayList<>(lines);
+    }
+
+    public boolean hasNextLine() {
+        return (lineIndex + 1) < lines.size();
+    }
+
+    public CommandStringIterator nextLine() {
+        if(hasNextLine()) {
+            index = 0;
+            line = lines.get(++lineIndex);
+        }
+        return this;
+    }
+
+    public String currentLine() {
+        return line;
+    }
+
+    public void addLineVariables(Variables vars) {
+        lines.set(lineIndex, line = vars.placeVariables(currentLine()));
+        index = 0;
     }
 
     public boolean hasNext() {
-        return index < str.length();
+        return index < line.length();
     }
 
     public char seek() {
         if(!hasNext()) return '\0';
-        return str.charAt(index);
+        return line.charAt(index);
     }
 
     public char nextChar() {
         if(!hasNext()) return '\0';
-        return str.charAt(index++);
+        return line.charAt(index++);
     }
 
     public char seekBack() {
-        if(!hasNext()) return '\0';
-        return str.charAt(index-2);
+        return line.charAt(index-2);
     }
 
     public String nextWord() {
+//        if(lineIndex == -1) nextLine();
         if(!hasNext()) return null;
-        int len = 0, skip = index;
+        int len = 0, skip = getPosition();
         boolean started = false;
-        for(int i = index; i<str.length(); i++) {
-            char c = str.charAt(i);
+        while(hasNext()) {
+            char c = nextChar();
             if(!started) {
                 if(Character.isWhitespace(c)) {
                     skip++;
@@ -56,17 +88,15 @@ public class CommandStringIterator {
                 len++;
             }
         }
-        index = skip + len;
-        return str.substring(skip, skip + len);
+        return currentLine().substring(skip, skip + len);
     }
 
-    public int nextInt() {
+    public Integer nextInt() {
         String word = nextWord();
         try {
             return Integer.decode(word);
         } catch(NumberFormatException e) {
-            error("Not a number");
-            return -1;
+            return null;
         }
     }
 
@@ -120,8 +150,8 @@ public class CommandStringIterator {
     }
 
     public CommandStringIterator removeNextWhitespace() {
-        while(index < str.length()) {
-            char c = str.charAt(index);
+        while(index < line.length()) {
+            char c = line.charAt(index);
             if(!Character.isWhitespace(c)) {
                 break;
             }
@@ -131,8 +161,8 @@ public class CommandStringIterator {
     }
 
     public String rest() {
-        String s = str.substring(index);
-        index = str.length();
+        String s = line.substring(index);
+        index = line.length();
         return s;
     }
 
