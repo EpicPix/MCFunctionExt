@@ -128,7 +128,7 @@ public class Datapack {
             JsonObject data = new JsonObject();
             data.addProperty("description", description);
             data.addProperty("pack_format", PACK_FORMAT);
-            meta.add("data", data);
+            meta.add("pack", data);
             Files.write(new File(where, "pack.mcmeta").toPath(), new GsonBuilder().setPrettyPrinting().create().toJson(meta).getBytes());
         }
 
