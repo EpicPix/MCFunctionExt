@@ -263,8 +263,7 @@ public final class Command {
                 return new CommandData(this, objs);
             }
         }catch(RuntimeException e) {
-            System.err.println("Runtime Exception in command: " + data.reset().rest());
-            throw e;
+            return new CommandError(e.getClass() + ": " + e.getMessage());
         }
     }
 
