@@ -1,6 +1,9 @@
 package ga.epicpix.mcfext.command;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParseException;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
 import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.Variables;
@@ -146,6 +149,11 @@ public final class Command {
                                 vals.add(Integer.parseInt(data.nextWord()));
                                 return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
                             }catch(NumberFormatException ignored) {}
+                        }else if(args[0].equals("@json")) {
+                            try {
+                                vals.add(new Gson().fromJson(data.rest(), JsonElement.class));
+                                return parseObjs(pack, fun, entry.getValue(), data, vars, vals);
+                            }catch(JsonParseException ignored) {}
                         }else if(args[0].equals("@multi")) {
                             String[] ss = val.split(" ", 2)[1].split("/");
                             HashMap<String, Object> start = new HashMap<>();

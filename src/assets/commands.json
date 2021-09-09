@@ -237,6 +237,14 @@
     }
   },
   {
+    "name": "tellraw",
+    "syntax": {
+      "@selector": {
+        "@json": "@end"
+      }
+    }
+  },
+  {
     "name": "time",
     "syntax": {
       "add": {
