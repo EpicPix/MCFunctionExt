@@ -10,10 +10,14 @@ jobs:
       - name: Clone repository
         uses: actions/checkout@v2
 
+      - uses: joschi/setup-jdk@v2
+        with:
+          java-version: '8'
+
       - run: "wget -O gson.jar https://repo1.maven.org/maven2/com/google/code/gson/gson/2.8.2/gson-2.8.2.jar"
         working-directory: src/
 
       - name: Compile
-        run: kotlinc -cp ".:./gson.jar" $(find . -name "*.java") $(find . -name "*.kt")
+        run: javac -cp ".:./gson.jar" $(find . -name "*.java")
         shell: bash
         working-directory: src/
