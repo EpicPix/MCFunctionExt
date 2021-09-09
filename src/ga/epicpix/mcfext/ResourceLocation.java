@@ -1,7 +1,5 @@
 package ga.epicpix.mcfext;
 
-import java.util.Objects;
-
 public final class ResourceLocation {
 
     private final String namespace;

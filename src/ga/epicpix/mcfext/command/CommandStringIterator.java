@@ -68,7 +68,6 @@ public class CommandStringIterator {
     }
 
     public String nextWord() {
-//        if(lineIndex == -1) nextLine();
         if(!hasNext()) return null;
         int len = 0, skip = getPosition();
         boolean started = false;
