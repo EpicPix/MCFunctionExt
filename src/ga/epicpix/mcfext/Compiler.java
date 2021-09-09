@@ -20,13 +20,47 @@ import static ga.epicpix.mcfext.Utils.warn;
 
 public class Compiler {
 
-    public static ArrayList<CommandData> compileFunctionFile(Datapack pack, DeclaredFunction fun, File file) {
+    public static List<String> defineFunctionFile(Datapack pack, DeclaredFunction fun, File file) {
         try {
-            return compileFunction(pack, fun, Files.readAllLines(file.toPath()));
+            return defineFunction(pack, fun, Files.readAllLines(file.toPath()));
         } catch (IOException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    public static List<String> defineFunction(Datapack pack, DeclaredFunction fun, List<String> data) {
+        if(fun.isVanillaMode()) return data;
+        CommandStringIterator iter = new CommandStringIterator(compileMin(data));
+
+        ArrayList<String> out = new ArrayList<>();
+
+        while(iter.hasNextLine()) {
+            iter.nextLine();
+            if(iter.nextWord().equals("define")) {
+                if(iter.nextWord().equals("method")) {
+                    String name = iter.nextWord();
+                    if(!iter.nextWord().equals("{")) {
+                        throw new SyntaxNotHandledException("Invalid method creation");
+                    }
+                    ArrayList<String> l = new ArrayList<>();
+                    while(iter.hasNextLine()) {
+                        String n = iter.nextLine().rest();
+                        if(n.equals("}")) {
+                            break;
+                        }
+                        l.add(n);
+                    }
+                    ResourceLocation res = fun.getResourceLocation();
+                    DeclaredFunction func = new DeclaredFunction(pack.getNamespace(res.getNamespace()), res.getLocation() + "-" + name, null, false);
+                    pack.addMethod(fun, name, compileFunction(pack, func, l));
+                }
+            }else {
+                out.add(iter.currentLine());
+            }
+        }
+
+        return out;
     }
 
     public static ArrayList<CommandData> compileFunction(Datapack pack, DeclaredFunction fun, List<String> data) {
@@ -76,30 +110,6 @@ public class Compiler {
             }else {
                 warn("Unknown operation: " + operation);
             }
-            return null;
-        }else if(!fun.isVanillaMode() && wcmd.equals("defmethod")) {
-            String name = iter.nextWord();
-            if(iter.hasNext()) {
-                if(!iter.nextWord().equals("{")) {
-                    throw new SyntaxNotHandledException("Invalid method creation");
-                }
-            }else {
-                if(!iter.nextLine().nextWord().equals("{")) {
-                    throw new SyntaxNotHandledException("Could not create method");
-                }
-            }
-            ArrayList<String> l = new ArrayList<>();
-            while(iter.hasNextLine()) {
-                String n = iter.nextLine().rest();
-                if(n.equals("}")) {
-                    break;
-                }
-                l.add(n);
-            }
-            ResourceLocation res = fun.getResourceLocation();
-            DeclaredFunction func = new DeclaredFunction(pack.getNamespace(res.getNamespace()), res.getLocation() + "-" + name, null, false);
-            ArrayList<CommandData> data = compileFunction(pack, func, l);
-            pack.getNamespace(res.getNamespace()).addMethod(fun, name, data);
             return null;
         }
 

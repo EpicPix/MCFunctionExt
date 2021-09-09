@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import ga.epicpix.mcfext.Compiler;
 import ga.epicpix.mcfext.command.CommandData;
 
+import ga.epicpix.mcfext.methods.Method;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -43,7 +44,7 @@ public class Datapack {
                 return null;
             }
             for(File fileNamespace : dataContents) {
-                Namespace ns = new Namespace(pack, fileNamespace.getName());
+                Namespace ns = new Namespace(fileNamespace.getName());
                 pack.namespaces.add(ns);
                 ArrayList<File> files = new ArrayList<>();
                 File[] rfiles = fileNamespace.listFiles();
@@ -72,11 +73,16 @@ public class Datapack {
             }
             for(Namespace ns : pack.namespaces) {
                 for (DeclaredFunction func : ns.declaredFunctions) {
-                    ns.addFunction(func.getResourceLocation().getLocation(), Compiler.compileFunctionFile(pack, func, func.getFile()));
+                    func.data = Compiler.defineFunctionFile(pack, func, func.getFile());
+                }
+            }
+            for(Namespace ns : pack.namespaces) {
+                for (DeclaredFunction func : ns.declaredFunctions) {
+                    ns.addFunction(func.getResourceLocation().getLocation(), Compiler.compileFunction(pack, func, func.data));
                 }
             }
         }else {
-            Namespace unknown = new Namespace(pack, "unknown");
+            Namespace unknown = new Namespace("unknown");
             pack.namespaces.add(unknown);
             ArrayList<File> files = new ArrayList<>();
             File[] rfiles = root.listFiles();
@@ -101,8 +107,11 @@ public class Datapack {
                 }
                 files.remove(0);
             }
-            for(DeclaredFunction func : unknown.declaredFunctions) {
-                unknown.addFunction(func.getResourceLocation().getLocation(), Compiler.compileFunctionFile(pack, func, func.getFile()));
+            for (DeclaredFunction func : unknown.declaredFunctions) {
+                func.data = Compiler.defineFunctionFile(pack, func, func.getFile());
+            }
+            for (DeclaredFunction func : unknown.declaredFunctions) {
+                unknown.addFunction(func.getResourceLocation().getLocation(), Compiler.compileFunction(pack, func, func.data));
             }
         }
         return pack;
@@ -151,6 +160,23 @@ public class Datapack {
         for(Namespace n : namespaces) {
             if(n.getName().equals(namespace)) {
                 return n;
+            }
+        }
+        return null;
+    }
+
+    private final ArrayList<Method> methods = new ArrayList<>();
+
+    public void addMethod(DeclaredFunction fun, String name, ArrayList<CommandData> commands) {
+        Method m;
+        methods.add(m = new Method(this, fun, name, commands));
+        getNamespace(fun.getResourceLocation().getNamespace()).getFunctions().add(m);
+    }
+
+    public Method getMethod(String methodName) {
+        for(Method method : methods) {
+            if(method.getName().equals(methodName)) {
+                return method;
             }
         }
         return null;

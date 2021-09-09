@@ -12,11 +12,9 @@ public class Namespace {
     private final ArrayList<Function> functions = new ArrayList<>();
 
     private final String name;
-    private final Datapack datapack;
 
-    public Namespace(Datapack pack, String name) {
+    public Namespace(String name) {
         this.name = name;
-        datapack = pack;
     }
 
     public String getName() {
@@ -25,10 +23,6 @@ public class Namespace {
 
     public void addFunction(String name, ArrayList<CommandData> commands) {
         functions.add(new Function(this, name, commands));
-    }
-
-    public void addMethod(DeclaredFunction fun, String name, ArrayList<CommandData> commands) {
-        functions.add(new Method(datapack, fun, name, commands));
     }
 
     public ArrayList<Function> getFunctions() {

@@ -4,6 +4,7 @@ import ga.epicpix.mcfext.Resource;
 import ga.epicpix.mcfext.ResourceLocation;
 
 import java.io.File;
+import java.util.List;
 
 public class DeclaredFunction implements Resource {
 
@@ -11,6 +12,8 @@ public class DeclaredFunction implements Resource {
     private final String name;
     private final File file;
     private final boolean vanillaMode;
+
+    public List<String> data;
 
     public DeclaredFunction(Namespace ns, String name, File file, boolean vanillaMode) {
         namespace = ns;

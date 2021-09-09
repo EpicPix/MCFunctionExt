@@ -233,14 +233,7 @@ public final class Command {
             }
             if(name.equals("method")) {
                 String methodName = data.nextWord();
-                Method m = null;
-                for(Function f : pack.getNamespace(fun.getResourceLocation().getNamespace()).getFunctions()) {
-                    if(f instanceof Method) {
-                        if(((Method) f).getName().equals(methodName)) {
-                            m = (Method) f;
-                        }
-                    }
-                }
+                Method m = pack.getMethod(methodName);
                 if(m == null) return new CommandError("Method " + methodName + " not found");
                 return new CommandData(getCommand("function"), m.getResourceLocation());
             }
