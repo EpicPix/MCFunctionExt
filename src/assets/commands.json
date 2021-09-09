@@ -141,6 +141,23 @@
         },
         "@vec3d": "@command execute"
       },
+      "if|unless": {
+        "score": {
+          "@word": {
+            "@word": {
+              "<|<=|=|>=|>": {
+                "@word": {
+                  "@word": "@command execute"
+                }
+              },
+              "matches": {
+                "@word": "@command execute",
+                "TODO": "Update this to range from word for better checking"
+              }
+            }
+          }
+        }
+      },
       "positioned": {
         "as": {
           "@selector": "@command execute"
