@@ -16,6 +16,7 @@ public class Start {
         Advancement.init();
         Biome.init();
         Command.init();
+        Effect.init();
         int ret = run(args);
         if(ret!=0) {
             System.exit(ret);
