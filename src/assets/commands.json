@@ -172,7 +172,20 @@
         },
         "@vec3d": "@command execute"
       },
-      "run": "@command"
+      "run": "@command",
+      "store": {
+        "result|success": {
+          "entity": {
+            "@selector": {
+              "@nbt_path": {
+                "byte|short|int|long|float|double": {
+                  "@double": "@command execute"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   {
