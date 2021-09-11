@@ -257,6 +257,46 @@
     "syntax": "@any"
   },
   {
+    "name": "scoreboard",
+    "syntax": {
+      "players": {
+        "list": {
+          "@none": "@end",
+          "@selector": "@end"
+        },
+        "get|enable": {
+          "@selector": {
+            "@word": "@end"
+          }
+        },
+        "set|add|remove": {
+          "@selector": {
+            "@word": {
+              "@int": "@end"
+            }
+          }
+        },
+        "reset": {
+          "@selector": {
+            "@none": "@end",
+            "@word": "@end"
+          }
+        },
+        "operation": {
+          "@selector": {
+            "@word": {
+              "=|+=|-=|*=|/=|%=|><|<|>": {
+                "@selector": {
+                  "@word": "@end"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "seed",
     "syntax": "@end"
   },
