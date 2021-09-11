@@ -142,6 +142,9 @@
         "@vec3d": "@command execute"
       },
       "if|unless": {
+        "entity": {
+          "@selector": "@command execute"
+        },
         "score": {
           "@word": {
             "@word": {
