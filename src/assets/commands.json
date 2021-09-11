@@ -150,6 +150,9 @@
         "entity": {
           "@selector": "@command execute"
         },
+        "in": {
+          "@resource": "@command execute"
+        },
         "score": {
           "@word": {
             "@word": {
