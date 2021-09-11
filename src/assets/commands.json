@@ -175,16 +175,27 @@
       "run": "@command",
       "store": {
         "result|success": {
-          "@multi entity @selector/storage @resource": {
-            "@nbt_path": {
-              "byte|short|int|long|float|double": {
-                "@double": "@command execute"
+          "entity": {
+            "@selector": {
+              "@nbt_path": {
+                "byte|short|int|long|float|double": {
+                  "@double": "@command execute"
+                }
               }
             }
           },
           "score": {
             "@selector": {
               "@word": "@command execute"
+            }
+          },
+          "storage": {
+            "@resource": {
+              "@nbt_path": {
+                "byte|short|int|long|float|double": {
+                  "@double": "@command execute"
+                }
+              }
             }
           }
         }
