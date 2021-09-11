@@ -142,6 +142,11 @@
         "@vec3d": "@command execute"
       },
       "if|unless": {
+        "data": {
+          "@multi block @vec3d/entity @selector/storage @resource": {
+            "@nbt_path": "@command execute"
+          }
+        },
         "entity": {
           "@selector": "@command execute"
         },
