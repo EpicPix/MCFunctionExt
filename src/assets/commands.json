@@ -341,6 +341,47 @@
     }
   },
   {
+    "name": "team",
+    "syntax": {
+      "list": {
+        "@none": "@end",
+        "@word": "@end"
+      },
+      "add": {
+        "@word": "@any"
+      },
+      "remove|empty": {
+        "@word": "@end"
+      },
+      "join": {
+        "@word": {
+          "@selector": "@end",
+          "@none": "@end"
+        }
+      },
+      "leave": {
+        "@selector": "@end"
+      },
+      "modify": {
+        "@word": {
+          "displayName|prefix|suffix": "@any",
+          "color": {
+            "black|dark_blue|dark_green|dark_aqua|dark_red|dark_purple|gold|gray|dark_gray|blue|green|aqua|red|light_purple|yellow|white|reset": "@end"
+          },
+          "friendlyFire|seeFriendlyInvisibles": {
+            "@boolean": "@end"
+          },
+          "nametagVisibility|deathMessageVisibility": {
+            "never|hideForOtherTeams|hideForOwnTeam|always": "@end"
+          },
+          "collisionRule": {
+            "always|never|pushOtherTeams|pushOwnTeam": "@end"
+          }
+        }
+      }
+    }
+  },
+  {
     "name": "tellraw",
     "syntax": {
       "@selector": {
