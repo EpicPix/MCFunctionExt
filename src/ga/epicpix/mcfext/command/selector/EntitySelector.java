@@ -47,6 +47,7 @@ public class EntitySelector extends Selector {
     @SelectorAccessible(DOUBLE) private Double x;
     @SelectorAccessible(DOUBLE) private Double y;
     @SelectorAccessible(DOUBLE) private Double z;
+    @SelectorAccessible(WORD) private String team;
 
     public String toString() {
         StringBuilder builder = new StringBuilder();
@@ -80,6 +81,8 @@ public class EntitySelector extends Selector {
                 return Integer.toString((int) num);
             }
             return Double.toString(num);
+        }else if(type == WORD) {
+            return type.toString();
         }else {
             return null;
         }
@@ -101,6 +104,8 @@ public class EntitySelector extends Selector {
                 }
             }
             return Double.parseDouble(val);
+        }else if(type == WORD) {
+            return iter.nextWord();
         }
         return null;
     }
