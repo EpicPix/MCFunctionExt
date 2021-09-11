@@ -183,6 +183,11 @@
                 }
               }
             }
+          },
+          "score": {
+            "@selector": {
+              "@word": "@command execute"
+            }
           }
         }
       }
