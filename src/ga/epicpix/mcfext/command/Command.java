@@ -34,6 +34,10 @@ public final class Command {
         COMMANDS.addAll(new Gson().fromJson(new InputStreamReader(Command.class.getClassLoader().getResourceAsStream("assets/commands.json")), new TypeToken<ArrayList<Command>>(){}.getType()));
     }
 
+    public static final boolean PRINT_COMMAND_USAGE = Boolean.parseBoolean(System.getProperty("CMDSTATS"));
+
+    public static final HashMap<String, Integer> commandUsage = new HashMap<>();
+
     private Object name;
     private Object syntax;
     private String warning;
@@ -58,6 +62,9 @@ public final class Command {
                     String cmdname = data.nextWord();
                     vals.add(cmdname);
                     cmd = getCommand(cmdname);
+                    Integer current = Command.commandUsage.get(cmdname);
+                    if(current==null) current = 0;
+                    Command.commandUsage.put(cmdname, current + 1);
                 }
                 if(cmd == null) {
                     data.setPosition(back);

@@ -6,6 +6,8 @@ import ga.epicpix.mcfext.command.Command;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map.Entry;
 
 import static ga.epicpix.mcfext.Utils.error;
 import static ga.epicpix.mcfext.Utils.getErrorCount;
@@ -59,6 +61,18 @@ public class Start {
 
         Datapack pack = Datapack.readDatapack(file);
         pack.save(compiled);
+
+        if(Command.PRINT_COMMAND_USAGE) {
+            System.out.println("-----------------------");
+            System.out.println("Printing command usages");
+            System.out.println();
+            Entry<String, Integer>[] a = Command.commandUsage.entrySet().toArray(new Entry[0]);
+            Arrays.sort(a, (o1, o2) -> o2.getValue().compareTo(o1.getValue()));
+            for(Entry<String, Integer> cmd : a) {
+                System.out.println(cmd.getKey() + ": " + cmd.getValue());
+            }
+            System.out.println("-----------------------");
+        }
 
         int errorc = getErrorCount();
         if(errorc!=0) {

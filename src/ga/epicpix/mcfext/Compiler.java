@@ -118,6 +118,9 @@ public class Compiler {
 
         String cmdName = iter.nextWord();
         Command cmd = Command.getCommand(cmdName);
+        Integer current = Command.commandUsage.get(cmdName);
+        if(current==null) current = 0;
+        Command.commandUsage.put(cmdName, current + 1);
         if (cmd != null) {
             Object out = cmd.parse(pack, fun, iter, vars);
             if(out==null) {
