@@ -19,7 +19,7 @@ import static ga.epicpix.mcfext.Utils.error;
 public class Datapack {
 
     private String description = "Unknown";
-    public static final int PACK_FORMAT = 7; // 1.17
+    public static final int PACK_FORMAT = 8; // 1.18
 
     private final ArrayList<Namespace> namespaces = new ArrayList<>();
 
