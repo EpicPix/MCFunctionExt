@@ -62,9 +62,11 @@ public final class Command {
                     String cmdname = data.nextWord();
                     vals.add(cmdname);
                     cmd = getCommand(cmdname);
-                    Integer current = Command.commandUsage.get(cmdname);
+
+                    String cname = cmdname + (cmd == null ? "?" : "");
+                    Integer current = Command.commandUsage.get(cname);
                     if(current==null) current = 0;
-                    Command.commandUsage.put(cmdname, current + 1);
+                    Command.commandUsage.put(cname, current + 1);
                 }
                 if(cmd == null) {
                     data.setPosition(back);
