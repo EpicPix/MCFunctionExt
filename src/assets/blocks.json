@@ -1,0 +1,17 @@
+{
+  "minecraft:acacia_button": 7,
+  "minecraft:acacia_door": 59,
+  "minecraft:acacia_fence": 1984,
+  "minecraft:acacia_fence_gate": 2059,
+  "minecraft:acacia_leaves": 12288,
+  "minecraft:acacia_log": 16384,
+  "minecraft:acacia_planks": 0,
+  "minecraft:acacia_pressure_plate": 1,
+  "minecraft:acacia_sapling": 32768,
+  "minecraft:acacia_sign": 65600,
+  "minecraft:acacia_slab": 131136,
+  "minecraft:acacia_stairs": 786498,
+  "minecraft:acacia_trapdoor": 262219,
+  "minecraft:acacia_wall_sign": 66,
+  "minecraft:acacia_wood": 16384
+}
