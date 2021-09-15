@@ -13,5 +13,21 @@
   "minecraft:acacia_stairs": 786498,
   "minecraft:acacia_trapdoor": 262219,
   "minecraft:acacia_wall_sign": 66,
-  "minecraft:acacia_wood": 16384
+  "minecraft:acacia_wood": 16384,
+  "minecraft:activator_rail": 1048641,
+  "minecraft:air": 0,
+  "minecraft:allium": 0,
+  "minecraft:amethyst_block": 0,
+  "minecraft:amethyst_cluster": 66,
+  "minecraft:ancient_debris": 0,
+  "minecraft:andesite": 0,
+  "minecraft:andesite_slab": 131136,
+  "minecraft:andesite_stairs": 786498,
+  "minecraft:andesite_wall": 2099136,
+  "minecraft:anvil": 2,
+  "minecraft:attached_melon_stem": 2,
+  "minecraft:attached_pumpkin_stem": 2,
+  "minecraft:azalea": 0,
+  "minecraft:azalea_leaves": 12288,
+  "minecraft:azure_bluet": 0
 }
