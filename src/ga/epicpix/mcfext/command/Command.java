@@ -44,7 +44,6 @@ public final class Command {
     private boolean vanilla = true;
 
     private Object parseObjs(Datapack pack, DeclaredFunction fun, Object syntax, CommandStringIterator data, Variables vars, ArrayList<Object> vals) {
-        debug("parseObjs(" + getName() + ") : " + syntax);
         if(syntax instanceof String) {
             String syn = (String) syntax;
             String[] sargs = syn.split(" ");
@@ -80,12 +79,6 @@ public final class Command {
                 return vals;
             }else if(sarg0.equals("@end")) {
                 return vals;
-            }else if(sarg0.equals("@error")) {
-                if(sarg1 != null) {
-                    return new CommandError(syn.split(" ", 2)[1]);
-                }else {
-                    return new CommandError("Undefined error");
-                }
             }
             throw new SyntaxNotHandledException("Not handled syntax: " + syn);
         }else if(syntax instanceof Map) {
