@@ -10,6 +10,7 @@ import ga.epicpix.mcfext.ResourceLocation;
 import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.advancements.Advancement;
 import ga.epicpix.mcfext.command.selector.Selector;
+import ga.epicpix.mcfext.compiler.selectors.ResultSelector;
 import ga.epicpix.mcfext.datapacks.Datapack;
 import ga.epicpix.mcfext.datapacks.DeclaredFunction;
 import ga.epicpix.mcfext.datapacks.Function;
@@ -21,6 +22,7 @@ import ga.epicpix.mcfext.pos.Vec2d;
 import ga.epicpix.mcfext.pos.Vec3d;
 
 import java.io.InputStreamReader;
+import java.lang.reflect.InvocationTargetException;
 import java.util.*;
 import java.util.Map.Entry;
 
@@ -48,37 +50,12 @@ public final class Command {
             String syn = (String) syntax;
             String[] sargs = syn.split(" ");
             String sarg0 = sargs[0];
-            String sarg1 = sargs.length > 1 ? sargs[1] : null;
-            if(sarg0.equals("@any")) {
-                vals.add(data.restW());
-                return vals;
-            }else if(sarg0.equals("@command")) {
-                int back = data.getPosition();
-                Command cmd;
-                if(sarg1 != null) {
-                    cmd = getCommand(sarg1);
-                }else {
-                    String cmdname = data.nextWord();
-                    vals.add(cmdname);
-                    cmd = getCommand(cmdname);
-
-                    String cname = cmdname + (cmd == null ? "?" : "");
-                    Integer current = Command.commandUsage.get(cname);
-                    if(current==null) current = 0;
-                    Command.commandUsage.put(cname, current + 1);
-                }
-                if(cmd == null) {
-                    data.setPosition(back);
-                    return new CommandError("Unknown command");
-                }
-                Object parsed = cmd.parse(pack, fun, data, vars);
-                if(parsed == null || parsed instanceof CommandError) {
-                    return parsed;
-                }
-                vals.addAll(Arrays.asList(((CommandData) parsed).getData()));
-                return vals;
-            }else if(sarg0.equals("@end")) {
-                return vals;
+            if(sarg0.startsWith("@")) {
+                try {
+                    Class<?> c = Class.forName("ga.epicpix.mcfext.compiler.selectors.result." + sarg0.substring(1));
+                    Class<? extends ResultSelector> sub = c.asSubclass(ResultSelector.class);
+                    return sub.getMethod("handleResult", Command.class, Datapack.class, DeclaredFunction.class, CommandStringIterator.class, Variables.class, ArrayList.class, String[].class).invoke(c.newInstance(), this, pack, fun, data, vars, vals, sargs);
+                } catch (ReflectiveOperationException e) {}
             }
             throw new SyntaxNotHandledException("Not handled syntax: " + syn);
         }else if(syntax instanceof Map) {
