@@ -3,7 +3,7 @@ package ga.epicpix.mcfext.datapacks;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
-import ga.epicpix.mcfext.Compiler;
+import ga.epicpix.mcfext.compiler.Compiler;
 import ga.epicpix.mcfext.command.CommandData;
 
 import ga.epicpix.mcfext.methods.Method;

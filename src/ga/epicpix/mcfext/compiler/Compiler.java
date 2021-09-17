@@ -1,5 +1,7 @@
-package ga.epicpix.mcfext;
+package ga.epicpix.mcfext.compiler;
 
+import ga.epicpix.mcfext.ResourceLocation;
+import ga.epicpix.mcfext.Variables;
 import ga.epicpix.mcfext.command.Command;
 import ga.epicpix.mcfext.command.CommandData;
 import ga.epicpix.mcfext.command.CommandError;
