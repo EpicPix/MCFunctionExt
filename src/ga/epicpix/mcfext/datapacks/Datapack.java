@@ -87,6 +87,7 @@ public class Datapack {
             ArrayList<File> files = new ArrayList<>();
             File[] rfiles = root.listFiles();
             if(rfiles == null) {
+                error("Couldn't list files");
                 return null;
             }
             Collections.addAll(files, rfiles);

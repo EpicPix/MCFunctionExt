@@ -60,6 +60,9 @@ public class Start {
         }
 
         Datapack pack = Datapack.readDatapack(file);
+        if(pack == null) {
+            return 1;
+        }
         pack.save(compiled);
 
         if(Command.PRINT_COMMAND_USAGE) {
